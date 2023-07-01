@@ -6,15 +6,21 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import "./styles.css";
 import { UserContext } from "../../UserContext";
+import BurgerMenu from "./BurgerMenu";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
+  const [menuState, setMenuState] = React.useState(false);
   const { user } = React.useContext(UserContext);
+
+  const handleMenuToggle = () => {
+    setMenuState(!menuState);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -28,34 +34,43 @@ const Navbar = (props: Props) => {
           {!user ? (
             <>
               <Button color="inherit" className="navbar__button">
-                <Link
+                <NavLink
                   color="inherit"
                   to={"/login"}
                   className="navbar__button-anchor"
                 >
                   Login
-                </Link>
+                </NavLink>
               </Button>
               <Button color="inherit" className="navbar__button">
-                <Link
+                <NavLink
                   color="inherit"
                   to={"/register"}
                   className="navbar__button-anchor"
                 >
                   Register
-                </Link>
+                </NavLink>
               </Button>
             </>
           ) : (
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
+            <>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                onClick={handleMenuToggle}
+              >
+                <MenuIcon />
+              </IconButton>
+              {menuState && (
+                <BurgerMenu
+                  menuState={menuState}
+                  handleMenuToggle={handleMenuToggle}
+                ></BurgerMenu>
+              )}
+            </>
           )}
         </Toolbar>
       </AppBar>
