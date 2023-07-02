@@ -1,4 +1,5 @@
 import React from "react";
+import CustomTable from "../../components/Table";
 
 type Props = {};
 
@@ -7,7 +8,7 @@ const Products = (props: Props) => {
     document.title = "POS-Foothill | Products Page";
   }, []);
 
-  return <div>Products</div>;
+  return <CustomTable></CustomTable>;
 };
 
 export default Products;
