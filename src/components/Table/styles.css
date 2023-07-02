@@ -1,0 +1,5 @@
+.table__add-item-button {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
