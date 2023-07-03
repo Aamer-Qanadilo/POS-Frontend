@@ -10,7 +10,7 @@ import "./styles.css";
 import { useFormik } from "formik";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../Contexts/UserContext";
 import httpCommon from "../../http-common";
 
 interface errors {

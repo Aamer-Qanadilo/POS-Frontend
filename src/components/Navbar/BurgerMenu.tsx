@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import { Link, NavLink } from "react-router-dom";
 
 import "./styles.css";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../Contexts/UserContext";
 
 interface props {
   menuState: boolean;

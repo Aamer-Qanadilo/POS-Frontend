@@ -3,7 +3,7 @@ import { Box, Button, Container, Divider, Typography } from "@mui/material";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 
 import CustomTable from "../../components/Table";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../Contexts/UserContext";
 import httpCommon from "../../http-common";
 import { toast } from "react-toastify";
 

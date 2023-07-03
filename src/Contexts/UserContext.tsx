@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import * as React from "react";
 import axios from "axios";
-import httpCommon from "./http-common";
+import httpCommon from "../http-common";
 
 interface props {
   children: React.ReactNode;
