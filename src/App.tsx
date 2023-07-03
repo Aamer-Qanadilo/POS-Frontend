@@ -3,7 +3,8 @@ import { ToastContainer } from "react-toastify";
 
 import "./App.css";
 import PageRouter from "./PageRouter";
-import { UserProvider } from "./UserContext";
+import { UserProvider } from "./Contexts/UserContext";
+import { LoaderProvider } from "./Contexts/LoaderContext";
 
 function App() {
   return (
@@ -19,9 +20,11 @@ function App() {
         draggable
         pauseOnHover
       />
-      <UserProvider>
-        <PageRouter />
-      </UserProvider>
+      <LoaderProvider>
+        <UserProvider>
+          <PageRouter />
+        </UserProvider>
+      </LoaderProvider>
     </React.Fragment>
   );
 }

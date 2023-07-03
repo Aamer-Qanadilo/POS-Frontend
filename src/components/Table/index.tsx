@@ -26,7 +26,7 @@ import TableCategories from "../TableCategories";
 interface props {
   dataHeader: { canSort: boolean; label: string; path: string }[];
   data: (products | categories | units)[];
-  handleDelete: (_id: string) => void;
+  handleDelete?: (_id: string) => Promise<void>;
   categoryFilters?: categories[] | null;
   imagesBaseUrl?: string;
 }

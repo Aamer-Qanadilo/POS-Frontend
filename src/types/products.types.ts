@@ -16,3 +16,11 @@ export default interface products {
     conversionFactor: number;
   };
 }
+
+export interface productUploadType {
+  name: string;
+  code: string;
+  category: string;
+  price: number;
+  unitOfMeasure: string;
+}

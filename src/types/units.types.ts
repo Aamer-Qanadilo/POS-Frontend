@@ -4,3 +4,5 @@ export default interface units {
   baseUnit: string;
   conversionFactor: number;
 }
+
+export type unitUploadType = Omit<units, "_id">;

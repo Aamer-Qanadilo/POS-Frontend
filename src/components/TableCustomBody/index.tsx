@@ -22,6 +22,8 @@ import products from "../../types/products.types.js";
 import categories from "../../types/categories.types.js";
 import units from "../../types/units.types.js";
 import { useNavigate } from "react-router";
+import { LoaderContext } from "../../Contexts/LoaderContext";
+import { toast } from "react-toastify";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -40,7 +42,7 @@ type Props = {
     path: string;
   }[];
   imagesBaseUrl?: string;
-  onDelete: (_id: string) => void;
+  onDelete?: (_id: string) => void;
 };
 
 interface Object {
@@ -54,6 +56,8 @@ const TableCustomBody = ({
   onDelete,
 }: Props) => {
   const [deleteAlert, setDeleteAlert] = React.useState(false);
+  const { startLoader, stopLoader } = React.useContext(LoaderContext);
+
   const navigate = useNavigate();
 
   if (items.length === 0) {
@@ -81,7 +85,12 @@ const TableCustomBody = ({
 
   const handleDelete = async (_id: string) => {
     handleToggleDelete();
-    onDelete(_id);
+    startLoader();
+    if (typeof onDelete !== "undefined") onDelete(_id);
+    else {
+      toast.warning("Something went wrong, couldn't perform the delete action");
+      stopLoader();
+    }
   };
 
   const handleToggleDelete = () => {

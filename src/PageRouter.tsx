@@ -8,7 +8,7 @@ import Cashier from "./pages/Cashier";
 import Products from "./pages/Products";
 import Categories from "./pages/Categories";
 import Units from "./pages/Units";
-import { UserContext } from "./UserContext";
+import { UserContext } from "./Contexts/UserContext";
 
 type Props = {};
 

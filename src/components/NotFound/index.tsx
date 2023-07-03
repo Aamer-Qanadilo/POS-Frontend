@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../Contexts/UserContext";
 
 type Props = {};
 

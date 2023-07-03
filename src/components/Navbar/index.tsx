@@ -9,7 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link, NavLink } from "react-router-dom";
 
 import "./styles.css";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../Contexts/UserContext";
 import BurgerMenu from "./BurgerMenu";
 
 type Props = {};
