@@ -12,10 +12,12 @@ interface props {
 
 const ContextInitialValues = {
   products: [],
+  productImageBaseUrl: "",
 };
 
 interface ContextTypes {
   products: productsTypes[] | [];
+  productImageBaseUrl: string;
   handleAddProduct?: (
     inputs: productUploadType,
     imageFile: File,
@@ -25,7 +27,7 @@ interface ContextTypes {
     imageFile: File,
   ) => Promise<void>;
   handleDeleteProduct?: (_id: string) => Promise<void>;
-  handleGettingProducts?: () => Promise<void>;
+  handleFetchProducts?: () => Promise<void>;
 }
 
 export const ProductContext =
@@ -41,7 +43,7 @@ export const ProductProvider = ({ children }: props) => {
 
   const headers = { authorization: "foothill__" + user };
 
-  const handleGettingProducts = async () => {
+  const handleFetchProducts = async () => {
     console.log("Getting products");
     try {
       const { data } = await httpCommon.get("/product", {
@@ -99,10 +101,10 @@ export const ProductProvider = ({ children }: props) => {
       );
 
       if (data.message === "success") {
-        const newProducts = [...products];
-        newProducts.forEach((product) => {
-          if (product._id === inputs._id) product = inputs;
-        });
+        let newProducts = [...products];
+        newProducts = newProducts.map((product) =>
+          product._id === inputs._id ? data.data : product,
+        );
         toast.success("Product Updated successfully!");
         setProducts(newProducts);
       } else if (data.message === "failed" && data.error) {
@@ -142,10 +144,11 @@ export const ProductProvider = ({ children }: props) => {
     <ProductContext.Provider
       value={{
         products,
+        productImageBaseUrl,
         handleAddProduct,
         handleUpdateProduct,
         handleDeleteProduct,
-        handleGettingProducts,
+        handleFetchProducts,
       }}
     >
       {children}

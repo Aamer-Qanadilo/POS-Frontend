@@ -3,6 +3,8 @@ import Navbar from "../Navbar";
 import { Outlet } from "react-router-dom";
 import { UserContext } from "../../Contexts/UserContext";
 import { ProductProvider } from "../../Contexts/ProductContext";
+import { CategoryProvider } from "../../Contexts/CategoryContext";
+import { UnitProvider } from "../../Contexts/UnitContext";
 
 type Props = {};
 
@@ -14,7 +16,11 @@ const Layout = (props: Props) => {
       <Navbar />
       {user ? (
         <ProductProvider>
-          <Outlet />
+          <CategoryProvider>
+            <UnitProvider>
+              <Outlet />
+            </UnitProvider>
+          </CategoryProvider>
         </ProductProvider>
       ) : (
         <Outlet />

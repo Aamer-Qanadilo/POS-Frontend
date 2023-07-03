@@ -1,6 +1,6 @@
 import http from "../http-common";
 import productTypes, { productUploadType } from "../types/products.types";
-import categoryTypes from "../types/categories.types";
+import categoryTypes, { categoryUploadType } from "../types/categories.types";
 
 interface headers {
   authorization: string | null;
@@ -8,7 +8,7 @@ interface headers {
 
 const newUpload = (
   file: File,
-  inputs: productUploadType | categoryTypes,
+  inputs: productUploadType | categoryUploadType,
   path: string,
   headers?: headers,
 ): Promise<any> => {

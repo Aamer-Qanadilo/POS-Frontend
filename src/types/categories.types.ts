@@ -3,3 +3,5 @@ export default interface categories {
   name: string;
   image: string;
 }
+
+export type categoryUploadType = Omit<categories, "_id">;

@@ -6,6 +6,8 @@ import CustomTable from "../../components/Table";
 import { UserContext } from "../../Contexts/UserContext";
 import httpCommon from "../../http-common";
 import { toast } from "react-toastify";
+import { LoaderContext } from "../../Contexts/LoaderContext";
+import { UnitContext } from "../../Contexts/UnitContext";
 
 type Props = {};
 
@@ -17,23 +19,26 @@ const dataHeader = [
   { canSort: false, label: "Updated At", path: "updatedAt" },
 ];
 
-const data = [
-  {
-    _id: "64980b4959aa2e2c8ff9a7ca",
-    name: "centimeter",
-    baseUnit: "meter",
-    conversionFactor: 0.01,
-    createdAt: "2023-06-25T09:39:21.861Z",
-    updatedAt: "2023-06-25T09:39:21.861Z",
-    __v: 0,
-  },
-];
-
 const Units = (props: Props) => {
   const { user } = React.useContext(UserContext);
+  const { units, handleFetchUnits, handleDeleteUnit } =
+    React.useContext(UnitContext);
+  const { startLoader, stopLoader } = React.useContext(LoaderContext);
+
+  const handleFetchData = async () => {
+    if (user) {
+      if (typeof handleFetchUnits !== "undefined" && units.length === 0) {
+        await handleFetchUnits();
+      }
+    }
+
+    stopLoader();
+  };
 
   React.useEffect(() => {
     document.title = "POS-Foothill | Units Page";
+    startLoader();
+    handleFetchData();
   }, []);
 
   const handleDelete = async (_id: string) => {};
@@ -67,7 +72,7 @@ const Units = (props: Props) => {
       <Divider />
 
       <CustomTable
-        data={data}
+        data={units}
         dataHeader={dataHeader}
         handleDelete={handleDelete}
       ></CustomTable>
