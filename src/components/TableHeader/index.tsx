@@ -77,6 +77,9 @@ function TableHeader({ data, onSort, sortColumn }: Props) {
             </TableCell>
           );
         })}
+        <TableCell key={"action"} align="center" className="table__header-cell">
+          Actions
+        </TableCell>
       </TableRow>
     </TableHead>
   );
