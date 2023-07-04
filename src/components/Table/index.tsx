@@ -156,13 +156,12 @@ const CustomTable = ({
         </Box>
       </Container>
 
-      {showFilters && (
-        <TableCategories
-          onCategorySelect={handleCategorySelect}
-          selectedCategory={filters.selectedCategory}
-          categoryFilters={categoryFilters}
-        />
-      )}
+      <TableCategories
+        onCategorySelect={handleCategorySelect}
+        selectedCategory={filters.selectedCategory}
+        categoryFilters={categoryFilters}
+        showFilters={showFilters}
+      />
 
       <Divider sx={{ margin: "10px 0" }} />
 
