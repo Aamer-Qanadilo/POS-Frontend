@@ -131,6 +131,7 @@ export const ProductProvider = ({ children }: props) => {
         let newProducts = [...products];
         newProducts = newProducts.filter((product) => product._id !== _id);
         toast.success("Product Deleted successfully!");
+        console.log(products, _id, data.data, newProducts);
         setProducts(newProducts);
       } else {
         toast.error(data.message || "Something went wrong, please try again");

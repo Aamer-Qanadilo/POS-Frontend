@@ -3,15 +3,13 @@ import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Container, Divider, TextField } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material/Select";
+import { Box, Button, Container, Divider, TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import * as _ from "lodash";
 
 import TableHeader from "../TableHeader";
-import Pagination from "../Pagination";
 
 import products from "../../types/products.types.js";
 import categories from "../../types/categories.types.js";
@@ -57,6 +55,11 @@ const CustomTable = ({
   });
 
   const [pageSize, setPageSize] = React.useState<number>(3);
+  const [showFilters, setShowFilters] = React.useState<boolean>(false);
+
+  const handleToggleShowFilters = () => {
+    setShowFilters(!showFilters);
+  };
 
   const handlePageSizeChange = (event: SelectChangeEvent) => {
     setPageSize(event.target.value as unknown as number);
@@ -120,21 +123,40 @@ const CustomTable = ({
 
   return (
     <TableContainer component={Paper}>
-      <Container maxWidth="xl">
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="searchQuery"
-          type="search"
-          id="searchQuery"
-          placeholder="Search by Name or Code"
-          onChange={(event) => handleSearch(event?.target.value)}
-          value={filters.searchQuery}
-        />
+      <Container maxWidth="md">
+        <Box component="div" className="table-filters">
+          {categoryFilters && (
+            <Button color="inherit" onClick={handleToggleShowFilters}>
+              <FilterListIcon
+                fontSize="large"
+                className="table-filters__icon"
+              />
+            </Button>
+          )}
+          <Box
+            component="div"
+            className="search-form table-filters__search-form"
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="searchQuery"
+              type="search"
+              id="searchQuery"
+              placeholder="Search by Name or Code"
+              onChange={(event) => handleSearch(event?.target.value)}
+              value={filters.searchQuery}
+              className="search-form__textfield"
+            />
+            <label htmlFor="searchQuery" className="search-form__label">
+              <SearchIcon />
+            </label>
+          </Box>
+        </Box>
       </Container>
 
-      {categoryFilters && (
+      {showFilters && (
         <TableCategories
           onCategorySelect={handleCategorySelect}
           selectedCategory={filters.selectedCategory}

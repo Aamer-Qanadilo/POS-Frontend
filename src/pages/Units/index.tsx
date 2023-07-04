@@ -8,6 +8,7 @@ import httpCommon from "../../http-common";
 import { toast } from "react-toastify";
 import { LoaderContext } from "../../Contexts/LoaderContext";
 import { UnitContext } from "../../Contexts/UnitContext";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -59,14 +60,17 @@ const Units = (props: Props) => {
         }}
       >
         <Typography variant="h5">Units</Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          className="table__add-item-button"
-        >
-          <ControlPointIcon />{" "}
-          <Typography variant="subtitle2">Add new Unit</Typography>
-        </Button>
+
+        <Link to={"new"}>
+          <Button
+            variant="contained"
+            color="primary"
+            className="table__add-item-button"
+          >
+            <ControlPointIcon />{" "}
+            <Typography variant="subtitle2">Add new Unit</Typography>
+          </Button>
+        </Link>
       </Box>
 
       <Divider />
