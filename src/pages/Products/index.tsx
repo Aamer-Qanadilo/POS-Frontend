@@ -6,6 +6,7 @@ import { UserContext } from "../../Contexts/UserContext";
 import { ProductContext } from "../../Contexts/ProductContext";
 import { CategoryContext } from "../../Contexts/CategoryContext";
 import { LoaderContext } from "../../Contexts/LoaderContext";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -68,14 +69,16 @@ const Products = (props: Props) => {
         }}
       >
         <Typography variant="h5">Products</Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          className="table__add-item-button"
-        >
-          <ControlPointIcon />{" "}
-          <Typography variant="subtitle2">Add new Product</Typography>
-        </Button>
+        <Link to={"new"}>
+          <Button
+            variant="contained"
+            color="primary"
+            className="table__add-item-button"
+          >
+            <ControlPointIcon />{" "}
+            <Typography variant="subtitle2">Add new Product</Typography>
+          </Button>
+        </Link>
       </Box>
 
       <Divider />

@@ -6,6 +6,7 @@ import CustomTable from "../../components/Table";
 import { CategoryContext } from "../../Contexts/CategoryContext";
 import { LoaderContext } from "../../Contexts/LoaderContext";
 import { UserContext } from "../../Contexts/UserContext";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -61,14 +62,17 @@ const Categories = (props: Props) => {
         }}
       >
         <Typography variant="h5">Categories</Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          className="table__add-item-button"
-        >
-          <ControlPointIcon />{" "}
-          <Typography variant="subtitle2">Add new Category</Typography>
-        </Button>
+
+        <Link to={"new"}>
+          <Button
+            variant="contained"
+            color="primary"
+            className="table__add-item-button"
+          >
+            <ControlPointIcon />{" "}
+            <Typography variant="subtitle2">Add new Category</Typography>
+          </Button>
+        </Link>
       </Box>
 
       <Divider />

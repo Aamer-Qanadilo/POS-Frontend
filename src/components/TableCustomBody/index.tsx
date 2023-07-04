@@ -16,7 +16,9 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { TransitionProps } from "@mui/material/transitions";
+import { tableCellClasses } from "@mui/material/TableCell";
+
+import { styled } from "@mui/material/styles";
 
 import products from "../../types/products.types.js";
 import categories from "../../types/categories.types.js";
@@ -24,15 +26,17 @@ import units from "../../types/units.types.js";
 import { useNavigate } from "react-router";
 import { LoaderContext } from "../../Contexts/LoaderContext";
 import { toast } from "react-toastify";
+import DialogPopup from "../DialogPopup/index";
 
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement<any, any>;
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
   },
-  ref: React.Ref<unknown>,
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 
 type Props = {
   items: (products | categories | units)[];
@@ -55,7 +59,8 @@ const TableCustomBody = ({
   imagesBaseUrl,
   onDelete,
 }: Props) => {
-  const [deleteAlert, setDeleteAlert] = React.useState(false);
+  const [deletePopupState, setDeletePopupState] = React.useState(false);
+  const [productIndex, setProductIndex] = React.useState<number | null>(null);
   const { startLoader, stopLoader } = React.useContext(LoaderContext);
 
   const navigate = useNavigate();
@@ -69,7 +74,7 @@ const TableCustomBody = ({
       // </Container>
       <TableBody>
         <TableRow>
-          <TableCell align="center" colSpan={headers.length}>
+          <TableCell align="center" colSpan={headers.length + 1}>
             <Typography variant="h6" color="red" sx={{ minHeight: "20vh" }}>
               There is no data to show
             </Typography>
@@ -93,8 +98,16 @@ const TableCustomBody = ({
     }
   };
 
+  const handleProductIndex = (index: number) => {
+    if (deletePopupState) {
+      setProductIndex(null);
+    } else {
+      setProductIndex(index);
+    }
+  };
+
   const handleToggleDelete = () => {
-    setDeleteAlert(!deleteAlert);
+    setDeletePopupState(!deletePopupState);
   };
 
   const renderCells = (item: Props["items"][0]) => {
@@ -135,48 +148,54 @@ const TableCustomBody = ({
   return (
     <>
       <TableBody sx={{ minHeight: "80vh" }}>
-        {items.map((item) => (
-          <TableRow
-            key={item._id}
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-          >
-            {renderCells(item)}
-            <TableCell align="center">
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: "5px",
-                  color: "#1976d2",
-                  justifyContent: "center",
-                }}
-              >
-                <Button onClick={() => handleUpdate(item._id)}>
-                  <EditIcon color="action" sx={{ cursor: "pointer" }} />
-                </Button>
-                <Button onClick={handleToggleDelete}>
-                  <DeleteIcon color="error" sx={{ cursor: "pointer" }} />
-                </Button>
-              </Box>
-              <Dialog
-                open={deleteAlert}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleToggleDelete}
-                aria-describedby="alert-dialog-slide-description"
-              >
-                <DialogTitle>{"Delete this product?"}</DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    Are you sure you want to delete this product?
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleToggleDelete}>Disagree</Button>
-                  <Button onClick={() => handleDelete(item._id)}>Agree</Button>
-                </DialogActions>
-              </Dialog>
-            </TableCell>
-          </TableRow>
+        {items.map((item, index) => (
+          <>
+            <TableRow
+              key={item._id + index + "row"}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              {renderCells(item)}
+              <TableCell align="center" key={item._id}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: "5px",
+                    color: "#1976d2",
+                    justifyContent: "center",
+                  }}
+                  key={item._id + index}
+                >
+                  <Button
+                    key={index + item._id + "1"}
+                    onClick={() => handleUpdate(item._id)}
+                  >
+                    <EditIcon color="action" />
+                  </Button>
+                  <Button
+                    key={index + item._id + "2"}
+                    onClick={() => {
+                      handleToggleDelete();
+                      handleProductIndex(index);
+                    }}
+                  >
+                    <DeleteIcon color="error" />
+                  </Button>
+                </Box>
+              </TableCell>
+            </TableRow>
+            <DialogPopup
+              key={index + item._id + "popup"}
+              deleteAlert={
+                deletePopupState &&
+                productIndex !== null &&
+                index === productIndex
+              }
+              itemID={item._id}
+              onDelete={handleDelete}
+              onToggleDelete={handleToggleDelete}
+              index={index}
+            />
+          </>
         ))}
       </TableBody>
     </>

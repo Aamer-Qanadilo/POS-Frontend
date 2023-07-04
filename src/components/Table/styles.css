@@ -3,3 +3,28 @@
   gap: 5px;
   align-items: center;
 }
+
+.table-filters {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.search-form {
+  position: relative;
+  flex-grow: 1;
+}
+
+.search-form__textfield {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.search-form__label {
+  position: absolute;
+  top: 58%;
+  right: 15px;
+  transform: translateY(-50%);
+}
