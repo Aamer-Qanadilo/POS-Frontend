@@ -1,14 +1,15 @@
 import React from "react";
 
-import TableCell from "@mui/material/TableCell";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-import "./styles.css";
 import { Box } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
+import "./styles.css";
 interface sortType {
   path: string;
   order: boolean | "asc" | "desc";
@@ -23,6 +24,16 @@ type Props = {
   onSort?: (sortColumn: sortType) => void;
   sortColumn: sortType;
 };
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 
 function TableHeader({ data, onSort, sortColumn }: Props) {
   const raiseSort = (path: string) => {

@@ -1,40 +1,32 @@
 import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Slide,
-  TableBody,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Box, Button, TableBody, TableCell, TableRow } from "@mui/material";
 import { tableCellClasses } from "@mui/material/TableCell";
 
 import { styled } from "@mui/material/styles";
+import { toast } from "react-toastify";
 
 import products from "../../types/products.types.js";
 import categories from "../../types/categories.types.js";
 import units from "../../types/units.types.js";
 import { useNavigate } from "react-router";
 import { LoaderContext } from "../../Contexts/LoaderContext";
-import { toast } from "react-toastify";
 import DialogPopup from "../DialogPopup/index";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
+const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
   },
 }));
 
@@ -67,19 +59,16 @@ const TableCustomBody = ({
 
   if (items.length === 0) {
     return (
-      // <Container
-      //   maxWidth="xl"
-
-      // >
-      // </Container>
       <TableBody>
-        <TableRow>
-          <TableCell align="center" colSpan={headers.length + 1}>
-            <Typography variant="h6" color="red" sx={{ minHeight: "20vh" }}>
-              There is no data to show
-            </Typography>
-          </TableCell>
-        </TableRow>
+        <StyledTableRow>
+          <StyledTableCell align="center" colSpan={headers.length + 1}>
+            <img
+              src="/assets/images/no-match.png"
+              alt="No matching data found"
+              style={{ width: "50%" }}
+            />
+          </StyledTableCell>
+        </StyledTableRow>
       </TableBody>
     );
   }
@@ -117,7 +106,7 @@ const TableCustomBody = ({
 
       if ("image" in item && header.path === "image") {
         return (
-          <TableCell
+          <StyledTableCell
             align="center"
             sx={{ maxWidth: "75px", minHeight: "20vh" }}
           >
@@ -127,19 +116,19 @@ const TableCustomBody = ({
               loading="lazy"
               style={{ maxWidth: "100%", objectFit: "contain" }}
             />
-          </TableCell>
+          </StyledTableCell>
         );
       } else if (typeof itemData !== "object") {
         return (
-          <TableCell align="center" sx={{ minHeight: "20vh" }}>
+          <StyledTableCell align="center" sx={{ minHeight: "20vh" }}>
             {itemData}
-          </TableCell>
+          </StyledTableCell>
         );
       } else if (typeof itemData === "object") {
         return (
-          <TableCell align="center" sx={{ minHeight: "20vh" }}>
+          <StyledTableCell align="center" sx={{ minHeight: "20vh" }}>
             {itemData["name"]}
-          </TableCell>
+          </StyledTableCell>
         );
       }
     });
@@ -150,12 +139,12 @@ const TableCustomBody = ({
       <TableBody sx={{ minHeight: "80vh" }}>
         {items.map((item, index) => (
           <>
-            <TableRow
+            <StyledTableRow
               key={item._id + index + "row"}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               {renderCells(item)}
-              <TableCell align="center" key={item._id}>
+              <StyledTableCell align="center" key={item._id}>
                 <Box
                   sx={{
                     display: "flex",
@@ -181,8 +170,8 @@ const TableCustomBody = ({
                     <DeleteIcon color="error" />
                   </Button>
                 </Box>
-              </TableCell>
-            </TableRow>
+              </StyledTableCell>
+            </StyledTableRow>
             <DialogPopup
               key={index + item._id + "popup"}
               deleteAlert={

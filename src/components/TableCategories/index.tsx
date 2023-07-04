@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
 import categories from "../../types/categories.types.js";
+import "./styles.css";
+import styles from "./styles.js";
 
 type Props = {
   categoryFilters?: categories[] | null;
@@ -10,30 +12,28 @@ type Props = {
     image: string;
   } | null;
   onCategorySelect: (category: Props["selectedCategory"]) => void;
+  showFilters: boolean;
 };
 
 const TableCategories = ({
   categoryFilters,
   selectedCategory,
   onCategorySelect,
+  showFilters,
 }: Props) => {
+  console.log(showFilters);
   return (
     <Container maxWidth="xl" sx={{ overflow: "hidden", position: "relative" }}>
       <Box
-        sx={{
-          display: "flex",
-          position: "relative",
-          top: "15px",
-          padding: "0 0 20px 0",
-          gap: "15px",
-          overflowX: "scroll",
-          boxSizing: "border-box",
-        }}
+        component="div"
+        sx={styles[".categories-filter"]}
+        className={`categories-filter ${showFilters ? " active" : ""}`}
       >
         <Button
           variant="contained"
           color={!selectedCategory ? "primary" : "inherit"}
           onClick={() => onCategorySelect(null)}
+          className="categories-filter__button"
         >
           <Typography variant="button">All</Typography>
         </Button>
@@ -47,23 +47,9 @@ const TableCategories = ({
                   : "inherit"
               }
               onClick={() => onCategorySelect(category)}
-              sx={{
-                display: "flex",
-                gap: "10px",
-                alignItems: "center",
-                flexShrink: "0",
-              }}
+              className="categories-filter__button"
             >
-              <Box
-                sx={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
+              <Box component="div" className="categories-filter__button-body">
                 <img
                   src={
                     "http://localhost:3000/api/v1/uploads/categories/" +
@@ -71,11 +57,7 @@ const TableCategories = ({
                   }
                   alt={category.name}
                   loading="lazy"
-                  style={{
-                    width: "100%",
-                    objectFit: "contain",
-                    // mixBlendMode: "color-burn",
-                  }}
+                  className="categories-filter__image"
                 />
               </Box>
               <Typography variant="button">{category.name}</Typography>

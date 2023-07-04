@@ -1,3 +1,5 @@
 .table__header-cell_sortable {
   cursor: pointer;
+  color: #c5cef7;
+  text-decoration: underline;
 }
