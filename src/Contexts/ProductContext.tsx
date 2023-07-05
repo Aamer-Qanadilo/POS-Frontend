@@ -20,14 +20,15 @@ interface ContextTypes {
   productImageBaseUrl: string;
   handleAddProduct?: (
     inputs: productUploadType,
-    imageFile: File,
+    imageFile?: File,
   ) => Promise<void>;
   handleUpdateProduct?: (
     inputs: productsTypes,
-    imageFile: File,
+    imageFile?: File,
   ) => Promise<void>;
   handleDeleteProduct?: (_id: string) => Promise<void>;
   handleFetchProducts?: () => Promise<void>;
+  findProduct?: (_id: string) => Promise<productsTypes | undefined>;
 }
 
 export const ProductContext =
@@ -42,6 +43,12 @@ export const ProductProvider = ({ children }: props) => {
   const { stopLoader } = React.useContext(LoaderContext);
 
   const headers = { authorization: "foothill__" + user };
+
+  const findProduct = async (_id: string) => {
+    if (products.length === 0) await handleFetchProducts();
+
+    return products.find((product) => product._id === _id);
+  };
 
   const handleFetchProducts = async () => {
     console.log("Getting products");
@@ -61,13 +68,13 @@ export const ProductProvider = ({ children }: props) => {
 
   const handleAddProduct = async (
     inputs: productUploadType,
-    imageFile: File,
+    imageFile?: File,
   ) => {
     try {
       const { data } = await FileUploadService.newUpload(
-        imageFile,
         inputs,
         "/product",
+        imageFile,
         headers,
       );
 
@@ -90,13 +97,13 @@ export const ProductProvider = ({ children }: props) => {
 
   const handleUpdateProduct = async (
     inputs: productsTypes,
-    imageFile: File,
+    imageFile?: File,
   ) => {
     try {
       const { data } = await FileUploadService.updateUpload(
-        imageFile,
         inputs,
         "/product",
+        imageFile,
         headers,
       );
 
@@ -150,6 +157,7 @@ export const ProductProvider = ({ children }: props) => {
         handleUpdateProduct,
         handleDeleteProduct,
         handleFetchProducts,
+        findProduct,
       }}
     >
       {children}

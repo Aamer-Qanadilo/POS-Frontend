@@ -7,14 +7,14 @@ interface headers {
 }
 
 const newUpload = (
-  file: File,
   inputs: productUploadType | categoryUploadType,
   path: string,
+  file?: File,
   headers?: headers,
 ): Promise<any> => {
   let formData = new FormData();
 
-  formData.append("image", file);
+  if (file) formData.append("image", file);
 
   for (let [key, value] of Object.entries(inputs)) {
     formData.append(key, value);
@@ -29,9 +29,9 @@ const newUpload = (
 };
 
 const updateUpload = (
-  file: File,
-  inputs: productTypes | categoryTypes,
+  inputs: (productUploadType | categoryUploadType) & { _id: string },
   path: string,
+  file?: File,
   headers?: headers,
 ): Promise<any> => {
   let formData = new FormData();

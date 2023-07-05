@@ -39,12 +39,10 @@ export const LoaderProvider = ({ children }: props) => {
 
   const startLoader = () => {
     setLoader(true);
-    console.log("test");
   };
 
   const stopLoader = () => {
     setLoader(false);
-    console.log("test2");
   };
 
   return (
