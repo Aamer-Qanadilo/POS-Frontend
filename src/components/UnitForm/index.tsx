@@ -1,27 +1,28 @@
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { useNavigate, useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider/Divider";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 
 import FormContainer from "../FormContainer";
-import FileField from "../FileField";
-import { CategoryContext } from "../../Contexts/CategoryContext";
+import { UnitContext } from "../../Contexts/UnitContext";
+
 import "./styles.css";
 import { LoaderContext } from "../../Contexts/LoaderContext";
 
 interface errors {
   name?: string;
-  image?: string;
+  baseUnit?: string;
+  conversionFactor?: string;
 }
 
 interface inputs {
   name: string;
-  image: File | undefined;
-  previewImage: string;
+  baseUnit: string;
+  conversionFactor: number;
 }
 
 const validate = (values: inputs) => {
@@ -29,16 +30,21 @@ const validate = (values: inputs) => {
 
   if (!values.name) {
     errors.name = "Required, please enter a valid name";
-  } else if (values.name.length < 4) {
-    errors.name = "Name should be minimum of length 4";
+  } else if (values.name.length < 2) {
+    errors.name = "Name should be minimum of length 2";
   }
 
-  if (!values.previewImage) {
-    if (!values.image) {
-      errors.image = "Required, please select an image";
-    } else if (!values.image.name.match(/\.(jpg|jpeg|png)$/)) {
-      errors.image = "Please select a valid image. [jpg | jpeg | png]";
-    }
+  if (!values.baseUnit) {
+    errors.baseUnit = "Required, please enter a valid Base Unit";
+  } else if (values.baseUnit.length < 2) {
+    errors.baseUnit = "Base unit should be minimum of length 2";
+  }
+
+  if (!values.conversionFactor) {
+    errors.conversionFactor =
+      "Required, please enter a valid conversion factor";
+  } else if (values.conversionFactor < 0) {
+    errors.conversionFactor = "Conversion Factor should be a positive number";
   }
 
   return errors;
@@ -46,43 +52,31 @@ const validate = (values: inputs) => {
 
 type Props = {};
 
-const CategoryForm = (props: Props) => {
+const UnitForm = (props: Props) => {
   const navigate = useNavigate();
 
-  const {
-    categoryImageBaseUrl,
-    handleAddCategory,
-    handleUpdateCategory,
-    findCategory,
-  } = React.useContext(CategoryContext);
-
+  const { handleAddUnit, handleUpdateUnit, findUnit } =
+    React.useContext(UnitContext);
   const { startLoader, stopLoader } = React.useContext(LoaderContext);
 
   const { id } = useParams();
 
-  const formHeader = id === "new" ? "Create New Category" : "Update Category";
+  const formHeader = id === "new" ? "Create New Unit" : "Update Unit";
   const formButton = id === "new" ? "Add" : "Update";
 
   const handleSubmit = async (inputs: inputs) => {
     startLoader();
-
     try {
       if (id === "new") {
-        if (handleAddCategory) {
-          await handleAddCategory(
-            { name: formik.values.name },
-            formik.values.image,
-          );
+        if (handleAddUnit) {
+          await handleAddUnit({ ...formik.values });
         } else {
           toast.error("Something went wrong, please try again");
           navigate("/");
         }
       } else if (typeof id !== "undefined") {
-        if (handleUpdateCategory) {
-          await handleUpdateCategory(
-            { _id: id, name: formik.values.name },
-            formik.values.image,
-          );
+        if (handleUpdateUnit) {
+          await handleUpdateUnit({ ...formik.values, _id: id });
         } else {
           toast.error("Something went wrong, please try again");
           navigate("/");
@@ -97,32 +91,23 @@ const CategoryForm = (props: Props) => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      image: undefined,
-      previewImage: "",
+      baseUnit: "",
+      conversionFactor: 0,
     },
     validate,
     onSubmit: handleSubmit,
   });
 
-  const handleImageChange = (file: File) => {
-    formik.setFieldValue("image", file);
-
-    if (!formik.touched.image) formik.setFieldTouched("image", true);
-    if (formik.values.previewImage) formik.setFieldValue("previewImage", "");
-
-    // formik.validateForm(formik.values);
-  };
-
-  const FetchCategory = async () => {
+  const FetchUnit = async () => {
     if (id === "new") return;
 
-    const category = findCategory ? await findCategory(id) : null;
+    const unit = findUnit ? await findUnit(id) : null;
 
-    if (category) {
+    if (unit) {
       formik.setValues({
-        name: category.name,
-        previewImage: categoryImageBaseUrl + category.image,
-        image: undefined,
+        name: unit.name,
+        baseUnit: unit.baseUnit,
+        conversionFactor: unit.conversionFactor,
       });
     } else {
       navigate("/not-found");
@@ -132,8 +117,8 @@ const CategoryForm = (props: Props) => {
   console.log(formik.errors);
 
   React.useEffect(() => {
-    document.title = "POS-Foothill | Category Form";
-    FetchCategory();
+    document.title = "POS-Foothill | Unit Form";
+    FetchUnit();
   }, []);
 
   return (
@@ -157,14 +142,39 @@ const CategoryForm = (props: Props) => {
           autoFocus
           error={formik.touched.name && Boolean(formik.errors.name)}
           helperText={formik.touched.name && formik.errors.name}
+          disabled={id !== "new"}
         />
-
-        <FileField
-          image={formik.values.image}
-          handleImageChange={handleImageChange}
-          initialPreviewImage={formik.values.previewImage}
-          error={formik.touched.image && Boolean(formik.errors.image)}
-          helperText={formik.touched.image && formik.errors.image}
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="baseUnit"
+          label="Base unit"
+          name="baseUnit"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.baseUnit}
+          error={formik.touched.baseUnit && Boolean(formik.errors.baseUnit)}
+          helperText={formik.touched.baseUnit && formik.errors.baseUnit}
+          disabled={id !== "new"}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="conversionFactor"
+          label="Conversion Factor"
+          name="conversionFactor"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.conversionFactor}
+          error={
+            formik.touched.conversionFactor &&
+            Boolean(formik.errors.conversionFactor)
+          }
+          helperText={
+            formik.touched.conversionFactor && formik.errors.conversionFactor
+          }
         />
 
         <Button
@@ -182,4 +192,4 @@ const CategoryForm = (props: Props) => {
   );
 };
 
-export default CategoryForm;
+export default UnitForm;

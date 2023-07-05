@@ -96,6 +96,7 @@ const CustomTable = ({
     setFilters({
       ...filters,
       sortColumn: sortColumn,
+      currentPage: 1,
     });
   };
 
@@ -144,14 +145,18 @@ const CustomTable = ({
               name="searchQuery"
               type="search"
               id="searchQuery"
-              placeholder="Search by Name or Code"
+              placeholder={
+                categoryFilters ? "Search by Name or Code" : "Search by Name"
+              }
               onChange={(event) => handleSearch(event?.target.value)}
               value={filters.searchQuery}
               className="search-form__textfield"
             />
-            <label htmlFor="searchQuery" className="search-form__label">
-              <SearchIcon />
-            </label>
+            {!filters.searchQuery && (
+              <label htmlFor="searchQuery" className="search-form__label">
+                <SearchIcon />
+              </label>
+            )}
           </Box>
         </Box>
       </Container>
