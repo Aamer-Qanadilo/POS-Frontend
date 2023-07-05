@@ -4,4 +4,4 @@ export default interface categories {
   image: string;
 }
 
-export type categoryUploadType = Omit<categories, "_id">;
+export type categoryUploadType = Omit<Omit<categories, "_id">, "image">;

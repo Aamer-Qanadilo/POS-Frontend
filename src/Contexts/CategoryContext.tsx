@@ -22,14 +22,15 @@ interface ContextTypes {
 
   handleAddCategory?: (
     inputs: categoryUploadType,
-    imageFile: File,
+    imageFile?: File,
   ) => Promise<void>;
   handleUpdateCategory?: (
-    inputs: categoriesTypes,
-    imageFile: File,
+    inputs: Omit<categoriesTypes, "image">,
+    imageFile?: File,
   ) => Promise<void>;
   handleDeleteCategory?: (_id: string) => Promise<void>;
   handleFetchCategories?: () => Promise<void>;
+  findCategory?: (_id?: string) => Promise<categoriesTypes | undefined>;
 }
 
 export const CategoryContext =
@@ -46,6 +47,12 @@ export const CategoryProvider = ({ children }: props) => {
   const { stopLoader } = React.useContext(LoaderContext);
 
   const headers = { authorization: "foothill__" + user };
+
+  const findCategory = async (_id?: string) => {
+    if (categories.length === 0) await handleFetchCategories();
+
+    return categories.find((category) => category._id === _id);
+  };
 
   const handleFetchCategories = async () => {
     try {
@@ -64,13 +71,13 @@ export const CategoryProvider = ({ children }: props) => {
 
   const handleAddCategory = async (
     inputs: categoryUploadType,
-    imageFile: File,
+    imageFile?: File,
   ) => {
     try {
       const { data } = await FileUploadService.newUpload(
-        imageFile,
         inputs,
         "/category",
+        imageFile,
         headers,
       );
 
@@ -88,16 +95,18 @@ export const CategoryProvider = ({ children }: props) => {
   };
 
   const handleUpdateCategory = async (
-    inputs: categoriesTypes,
-    imageFile: File,
+    inputs: Omit<categoriesTypes, "image">,
+    imageFile?: File,
   ) => {
     try {
       const { data } = await FileUploadService.updateUpload(
-        imageFile,
         inputs,
         "/category",
+        imageFile,
         headers,
       );
+
+      console.log(data);
 
       if (data.message === "success") {
         let newCategories = [...categories];
@@ -158,6 +167,7 @@ export const CategoryProvider = ({ children }: props) => {
         handleUpdateCategory,
         handleDeleteCategory,
         handleFetchCategories,
+        findCategory,
       }}
     >
       {children}

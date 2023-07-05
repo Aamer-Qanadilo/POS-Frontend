@@ -74,7 +74,7 @@ const TableCustomBody = ({
   }
 
   const handleUpdate = (_id: string) => {
-    navigate("update/" + _id);
+    navigate(_id);
   };
 
   const handleDelete = async (_id: string) => {
