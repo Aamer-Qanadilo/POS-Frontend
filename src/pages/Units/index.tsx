@@ -16,8 +16,8 @@ const dataHeader = [
   { canSort: true, label: "Name", path: "name" },
   { canSort: true, label: "Base Unit", path: "baseUnit" },
   { canSort: true, label: "Conversion Factor", path: "conversionFactor" },
-  { canSort: false, label: "Created At", path: "createdAt" },
-  { canSort: false, label: "Updated At", path: "updatedAt" },
+  { canSort: true, label: "Created At", path: "createdAt" },
+  { canSort: true, label: "Updated At", path: "updatedAt" },
 ];
 
 const Units = (props: Props) => {

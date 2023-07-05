@@ -13,8 +13,8 @@ type Props = {};
 const dataHeader = [
   { canSort: false, label: "Image", path: "image" },
   { canSort: true, label: "Name", path: "name" },
-  { canSort: false, label: "Created At", path: "createdAt" },
-  { canSort: false, label: "Updated At", path: "updatedAt" },
+  { canSort: true, label: "Created At", path: "createdAt" },
+  { canSort: true, label: "Updated At", path: "updatedAt" },
 ];
 
 const Categories = (props: Props) => {

@@ -16,6 +16,7 @@ interface ContextTypes {
   handleUpdateUnit?: (inputs: unitsTypes) => Promise<void>;
   handleDeleteUnit?: (_id: string) => Promise<void>;
   handleFetchUnits?: () => Promise<void>;
+  findUnit?: (_id?: string) => Promise<unitsTypes | undefined>;
 }
 
 const ContextInitialValues = {
@@ -32,6 +33,12 @@ export const UnitProvider = ({ children }: props) => {
   const { stopLoader } = React.useContext(LoaderContext);
 
   const headers = { authorization: "foothill__" + user };
+
+  const findUnit = async (_id?: string) => {
+    if (units.length === 0) await handleFetchUnits();
+
+    return units.find((unit) => unit._id === _id);
+  };
 
   const handleFetchUnits = async () => {
     try {
@@ -74,9 +81,17 @@ export const UnitProvider = ({ children }: props) => {
 
   const handleUpdateUnit = async (inputs: unitsTypes) => {
     try {
-      const { data } = await httpCommon.patch(`/units`, inputs, {
-        headers: headers,
-      });
+      const { conversionFactor, _id: id } = inputs;
+
+      const { data } = await httpCommon.patch(
+        `/units`,
+        { conversionFactor, id },
+        {
+          headers: headers,
+        },
+      );
+
+      console.log(data);
 
       if (data.message === "success") {
         let newUnits = [...units];
@@ -135,6 +150,7 @@ export const UnitProvider = ({ children }: props) => {
         handleUpdateUnit,
         handleDeleteUnit,
         handleFetchUnits,
+        findUnit,
       }}
     >
       {children}

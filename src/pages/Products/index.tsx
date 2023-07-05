@@ -17,6 +17,7 @@ const dataHeader = [
   { canSort: true, label: "Price", path: "price" },
   { canSort: false, label: "Unit of measure", path: "unitOfMeasure" },
   { canSort: false, label: "Category", path: "category" },
+  { canSort: true, label: "Updated At", path: "updatedAt" },
 ];
 
 const Products = (props: Props) => {
