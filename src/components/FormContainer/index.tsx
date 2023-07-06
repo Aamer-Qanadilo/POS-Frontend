@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Breakpoint, createTheme, ThemeProvider } from "@mui/material/styles";
 import Divider from "@mui/material/Divider/Divider";
 
 import Copyright from "../Copyright";
@@ -14,11 +14,12 @@ import "./styles.css";
 type Props = {
   children: React.ReactNode;
   FormHeader: string;
+  maxWidth?: false | Breakpoint;
 };
 
 const defaultTheme = createTheme();
 
-const FormContainer = ({ children, ...props }: Props) => {
+const FormContainer = ({ children, FormHeader, maxWidth, ...props }: Props) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -32,7 +33,7 @@ const FormContainer = ({ children, ...props }: Props) => {
     <ThemeProvider theme={defaultTheme}>
       <Container
         component="main"
-        maxWidth="xs"
+        maxWidth={maxWidth || "xs"}
         sx={{ backgroundColor: "white", borderRadius: "15px" }}
       >
         {/* <CssBaseline /> */}
@@ -49,7 +50,7 @@ const FormContainer = ({ children, ...props }: Props) => {
                 <LockOutlinedIcon />
               </Avatar> */}
           <Typography component="h1" variant="h5">
-            {props.FormHeader}
+            {FormHeader}
           </Typography>
           {children}
         </Box>

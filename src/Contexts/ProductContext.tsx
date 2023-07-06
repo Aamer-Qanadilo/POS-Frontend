@@ -23,12 +23,12 @@ interface ContextTypes {
     imageFile?: File,
   ) => Promise<void>;
   handleUpdateProduct?: (
-    inputs: productsTypes,
+    inputs: productUploadType & { _id: string },
     imageFile?: File,
   ) => Promise<void>;
   handleDeleteProduct?: (_id: string) => Promise<void>;
   handleFetchProducts?: () => Promise<void>;
-  findProduct?: (_id: string) => Promise<productsTypes | undefined>;
+  findProduct?: (_id?: string) => Promise<productsTypes | undefined>;
 }
 
 export const ProductContext =
@@ -44,7 +44,7 @@ export const ProductProvider = ({ children }: props) => {
 
   const headers = { authorization: "foothill__" + user };
 
-  const findProduct = async (_id: string) => {
+  const findProduct = async (_id?: string) => {
     if (products.length === 0) await handleFetchProducts();
 
     return products.find((product) => product._id === _id);
@@ -71,12 +71,16 @@ export const ProductProvider = ({ children }: props) => {
     imageFile?: File,
   ) => {
     try {
+      console.log(inputs);
+
       const { data } = await FileUploadService.newUpload(
         inputs,
         "/product",
         imageFile,
         headers,
       );
+
+      console.log(data, inputs);
 
       if (data.message === "success") {
         const newProducts = [...products];
@@ -96,7 +100,7 @@ export const ProductProvider = ({ children }: props) => {
   };
 
   const handleUpdateProduct = async (
-    inputs: productsTypes,
+    inputs: productUploadType & { _id: string },
     imageFile?: File,
   ) => {
     try {
@@ -123,7 +127,9 @@ export const ProductProvider = ({ children }: props) => {
       } else {
         toast.error("Something went wrong, please check your inputs");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
 
     if (stopLoader) stopLoader();
   };

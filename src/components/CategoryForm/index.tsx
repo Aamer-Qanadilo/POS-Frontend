@@ -12,18 +12,26 @@ import FileField from "../FileField";
 import { CategoryContext } from "../../Contexts/CategoryContext";
 import "./styles.css";
 import { LoaderContext } from "../../Contexts/LoaderContext";
+import { categoryUploadType } from "../../types/categories.types";
 
 interface errors {
   name?: string;
   image?: string;
 }
 
-interface inputs {
-  name: string;
+type inputs = Omit<categoryUploadType, "image"> & {
   image: File | undefined;
   previewImage: string;
-}
+};
 
+const initialValues: Omit<categoryUploadType, "image"> & {
+  image: File | undefined;
+  previewImage: string;
+} = {
+  name: "",
+  image: undefined,
+  previewImage: "",
+};
 const validate = (values: inputs) => {
   const errors: errors = {};
 
@@ -95,22 +103,18 @@ const CategoryForm = (props: Props) => {
   };
 
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      image: undefined,
-      previewImage: "",
-    },
+    initialValues: initialValues,
     validate,
     onSubmit: handleSubmit,
   });
 
-  const handleImageChange = (file: File) => {
-    formik.setFieldValue("image", file);
+  const handleImageChange = async (file: File) => {
+    const value = await formik.setFieldValue("image", file);
 
-    if (!formik.touched.image) formik.setFieldTouched("image", true);
-    if (formik.values.previewImage) formik.setFieldValue("previewImage", "");
+    if (formik.values.previewImage)
+      await formik.setFieldValue("previewImage", "");
 
-    // formik.validateForm(formik.values);
+    if (!formik.touched.image) await formik.setFieldTouched("image", true);
   };
 
   const FetchCategory = async () => {
@@ -161,7 +165,8 @@ const CategoryForm = (props: Props) => {
 
         <FileField
           image={formik.values.image}
-          handleImageChange={handleImageChange}
+          onImageChange={handleImageChange}
+          onBlur={formik.handleBlur}
           initialPreviewImage={formik.values.previewImage}
           error={formik.touched.image && Boolean(formik.errors.image)}
           helperText={formik.touched.image && formik.errors.image}

@@ -165,6 +165,7 @@ const UnitForm = (props: Props) => {
           id="conversionFactor"
           label="Conversion Factor"
           name="conversionFactor"
+          type="number"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.conversionFactor}
