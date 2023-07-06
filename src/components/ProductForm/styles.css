@@ -1,0 +1,8 @@
+.file-input_large {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  justify-content: center;
+}

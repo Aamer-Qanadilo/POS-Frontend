@@ -11,6 +11,7 @@ import Units from "./pages/Units";
 import { UserContext } from "./Contexts/UserContext";
 import CategoryForm from "./components/CategoryForm";
 import UnitForm from "./components/UnitForm";
+import ProductForm from "./components/ProductForm";
 
 type Props = {};
 
@@ -30,10 +31,11 @@ const PageRouter = (props: Props) => {
             <>
               <Route path="/" element={<Cashier />} />
               <Route path="/products" element={<Products />} />
+              <Route path="/products/:id" element={<ProductForm />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/categories/:id" element={<CategoryForm />} />
-              <Route path="/units/:id" element={<UnitForm />} />
               <Route path="/units" element={<Units />} />
+              <Route path="/units/:id" element={<UnitForm />} />
             </>
           )}
           <Route path="*" element={<NotFound />} />

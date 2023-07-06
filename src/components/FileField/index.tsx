@@ -11,7 +11,9 @@ type Props = {
   error: boolean | undefined;
   helperText?: React.ReactNode;
   image: File | undefined;
-  handleImageChange: (file: File) => void;
+  onImageChange: (file: File) => void;
+  onBlur?: React.FocusEventHandler<HTMLLabelElement> | undefined;
+  className?: string;
 };
 
 const FileField = ({
@@ -19,7 +21,9 @@ const FileField = ({
   error,
   helperText,
   initialPreviewImage,
-  handleImageChange,
+  onImageChange,
+  onBlur,
+  className,
 }: Props) => {
   const [previewImage, setPreviewImage] = React.useState<string>("");
   const [isDraggedIn, setIsDraggedIn] = React.useState(false);
@@ -27,7 +31,7 @@ const FileField = ({
   const selectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files as FileList;
     console.log(selectedFiles);
-    handleImageChange(selectedFiles?.[0]);
+    onImageChange(selectedFiles?.[0]);
     setPreviewImage(URL.createObjectURL(selectedFiles?.[0]));
   };
 
@@ -36,7 +40,7 @@ const FileField = ({
     console.log(event.dataTransfer.files);
     const selectedFiles = event.dataTransfer.files as FileList;
 
-    handleImageChange(selectedFiles?.[0]);
+    onImageChange(selectedFiles?.[0]);
     setPreviewImage(URL.createObjectURL(selectedFiles?.[0]));
     toggleIsDraggedIn(event, false);
   };
@@ -51,19 +55,21 @@ const FileField = ({
   };
 
   return (
-    <Box>
+    <Box component={"div"} sx={{ width: "100%", height: "100%" }}>
       <label
         htmlFor="file-input"
         className={
           "file-input" +
           (error && (!initialPreviewImage || previewImage)
-            ? " file-input_error"
-            : "")
+            ? " file-input_error "
+            : " ") +
+          className
         }
         onDragOver={(evt) => toggleIsDraggedIn(evt, true)}
         onDragEnter={(evt) => toggleIsDraggedIn(evt, true)}
         onDragLeave={(evt) => toggleIsDraggedIn(evt, false)}
         onDrop={(e) => handleDragFile(e)}
+        onBlur={onBlur}
       >
         <input
           id="file-input"
