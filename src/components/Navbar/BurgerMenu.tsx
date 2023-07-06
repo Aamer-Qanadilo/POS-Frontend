@@ -31,10 +31,15 @@ const BurgerMenu = ({ menuState, handleMenuToggle, ...props }: props) => {
 
   return (
     <div>
-      <Drawer anchor="right" open={menuState} onClose={handleMenuToggle}>
+      <Drawer
+        anchor="right"
+        transitionDuration={250}
+        open={menuState}
+        onClose={handleMenuToggle}
+      >
         <Box
           sx={{
-            width: 250,
+            width: 300,
             height: "100%",
             display: "flex",
           }}
@@ -57,7 +62,7 @@ const BurgerMenu = ({ menuState, handleMenuToggle, ...props }: props) => {
               </NavLink>
             </ListItemButton>
 
-            <Divider sx={{ margin: "10px 0" }} />
+            <Divider variant="middle" flexItem></Divider>
 
             <ListItemButton sx={{ textAlign: "center" }}>
               <NavLink
@@ -69,7 +74,7 @@ const BurgerMenu = ({ menuState, handleMenuToggle, ...props }: props) => {
               </NavLink>
             </ListItemButton>
 
-            <Divider sx={{ margin: "10px 0" }} />
+            <Divider variant="middle" flexItem></Divider>
 
             <ListItemButton sx={{ textAlign: "center" }}>
               <NavLink
@@ -81,7 +86,7 @@ const BurgerMenu = ({ menuState, handleMenuToggle, ...props }: props) => {
               </NavLink>
             </ListItemButton>
 
-            <Divider sx={{ margin: "10px 0" }} />
+            <Divider variant="middle" flexItem></Divider>
 
             <ListItemButton sx={{ textAlign: "center" }}>
               <NavLink

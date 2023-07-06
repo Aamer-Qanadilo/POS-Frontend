@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Layout from "./components/Layout";
@@ -12,6 +12,7 @@ import { UserContext } from "./Contexts/UserContext";
 import CategoryForm from "./components/CategoryForm";
 import UnitForm from "./components/UnitForm";
 import ProductForm from "./components/ProductForm";
+import ForgetPassword from "./components/ForgetPassword";
 
 type Props = {};
 
@@ -26,6 +27,8 @@ const PageRouter = (props: Props) => {
             <>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/forget-password" element={<ForgetPassword />} />
+              <Route path="/" element={<Navigate to="/login" />} />
             </>
           ) : (
             <>
