@@ -22,17 +22,3 @@
 .navbar__button-anchor:hover::after {
   width: 100%;
 }
-
-.navbar__burger-anchor {
-  display: block;
-  width: 100%;
-  text-align: center;
-  color: black;
-  text-decoration: none;
-  padding: 15px 0;
-}
-
-.navbar__burger-anchor.active {
-  color: #1976d2;
-  font-weight: bold;
-}

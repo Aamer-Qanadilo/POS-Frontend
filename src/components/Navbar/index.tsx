@@ -8,9 +8,9 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, NavLink } from "react-router-dom";
 
-import "./styles.css";
 import { UserContext } from "../../Contexts/UserContext";
-import BurgerMenu from "./BurgerMenu";
+import BurgerMenu from "../NavbarBurgerMenu/BurgerMenu";
+import "./styles.css";
 
 type Props = {};
 

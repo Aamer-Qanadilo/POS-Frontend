@@ -13,6 +13,7 @@ import CategoryForm from "./components/CategoryForm";
 import UnitForm from "./components/UnitForm";
 import ProductForm from "./components/ProductForm";
 import ForgetPassword from "./components/ForgetPassword";
+import ResetPassword from "./components/ResetPassword";
 
 type Props = {};
 
@@ -28,6 +29,7 @@ const PageRouter = (props: Props) => {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/" element={<Navigate to="/login" />} />
             </>
           ) : (
@@ -41,7 +43,8 @@ const PageRouter = (props: Props) => {
               <Route path="/units/:id" element={<UnitForm />} />
             </>
           )}
-          <Route path="*" element={<NotFound />} />
+          <Route path="not-found" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/not-found" />} />
         </Route>
       </Routes>
     </BrowserRouter>

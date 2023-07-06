@@ -1,19 +1,20 @@
 import * as React from "react";
 
-import IconButton from "@mui/material/IconButton";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-//drawer elements used
-import Drawer from "@mui/material/Drawer";
+import {
+  Typography,
+  ListItemButton,
+  Button,
+  Divider,
+  Drawer,
+  Box,
+  IconButton,
+} from "@mui/material";
+
 import CloseIcon from "@mui/icons-material/Close";
-import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Button from "@mui/material/Button";
 import { Link, NavLink } from "react-router-dom";
 
-import "./styles.css";
 import { UserContext } from "../../Contexts/UserContext";
+import "./styles.css";
 
 interface props {
   menuState: boolean;
@@ -39,25 +40,34 @@ const BurgerMenu = ({ menuState, handleMenuToggle, ...props }: props) => {
       >
         <Box
           sx={{
-            width: 300,
+            width: 350,
             height: "100%",
             display: "flex",
           }}
           flexDirection="column"
           justifyContent="space-between"
         >
-          <Box textAlign="end">
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "10px 15px",
+            }}
+          >
+            <Typography variant="h6" component="div" onClick={handleMenuToggle}>
+              <Link to={"/"} className=" navbar__burger-logo">
+                POS-Foothill
+              </Link>
+            </Typography>
             <IconButton onClick={handleMenuToggle}>
               <CloseIcon />
             </IconButton>
           </Box>
+
           <Box textAlign="center">
             <ListItemButton sx={{ textAlign: "center" }}>
-              <NavLink
-                color="inherit"
-                to={"/"}
-                className="navbar__burger-anchor"
-              >
+              <NavLink to={"/"} className="navbar__burger-anchor">
                 Cashier Page
               </NavLink>
             </ListItemButton>
@@ -65,11 +75,7 @@ const BurgerMenu = ({ menuState, handleMenuToggle, ...props }: props) => {
             <Divider variant="middle" flexItem></Divider>
 
             <ListItemButton sx={{ textAlign: "center" }}>
-              <NavLink
-                color="inherit"
-                to={"/products"}
-                className="navbar__burger-anchor"
-              >
+              <NavLink to={"/products"} className="navbar__burger-anchor">
                 Products Page
               </NavLink>
             </ListItemButton>
@@ -77,11 +83,7 @@ const BurgerMenu = ({ menuState, handleMenuToggle, ...props }: props) => {
             <Divider variant="middle" flexItem></Divider>
 
             <ListItemButton sx={{ textAlign: "center" }}>
-              <NavLink
-                color="inherit"
-                to={"/categories"}
-                className="navbar__burger-anchor"
-              >
+              <NavLink to={"/categories"} className="navbar__burger-anchor">
                 Categories Page
               </NavLink>
             </ListItemButton>
@@ -89,11 +91,7 @@ const BurgerMenu = ({ menuState, handleMenuToggle, ...props }: props) => {
             <Divider variant="middle" flexItem></Divider>
 
             <ListItemButton sx={{ textAlign: "center" }}>
-              <NavLink
-                color="inherit"
-                to={"/units"}
-                className="navbar__burger-anchor"
-              >
+              <NavLink to={"/units"} className="navbar__burger-anchor">
                 Units Page
               </NavLink>
             </ListItemButton>
@@ -101,8 +99,9 @@ const BurgerMenu = ({ menuState, handleMenuToggle, ...props }: props) => {
           <Box textAlign="center">
             <Button
               variant="text"
-              sx={{ mb: 3, fontWeight: "bold" }}
+              sx={{ fontWeight: "bold", padding: "15px 0 35px" }}
               onClick={handleLogoutClick}
+              fullWidth
             >
               Logout
             </Button>
