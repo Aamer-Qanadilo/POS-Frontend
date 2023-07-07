@@ -8,11 +8,14 @@
   display: flex;
   gap: 15px;
   align-items: center;
+  justify-content: space-between;
+  padding: 20px 0 0;
 }
 
 .search-form {
   position: relative;
-  flex-grow: 1;
+  /* flex-grow: 1; */
+  /* min-width: 35%; */
 }
 
 .search-form__textfield {
@@ -27,4 +30,8 @@
   top: 58%;
   right: 15px;
   transform: translateY(-50%);
+}
+
+.test-table {
+  width: 80%;
 }

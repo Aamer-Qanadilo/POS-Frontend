@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, Typography } from "@mui/material";
 import categories from "../../types/categories.types.js";
 import "./styles.css";
-import styles from "./styles.js";
+import { CategoryContext } from "../../Contexts/CategoryContext";
 
 type Props = {
   categoryFilters?: categories[] | null;
@@ -15,18 +15,19 @@ type Props = {
   showFilters: boolean;
 };
 
-const TableCategories = ({
+const ProductCategoriesFilter = ({
   categoryFilters,
   selectedCategory,
   onCategorySelect,
   showFilters,
 }: Props) => {
+  const { categoryImageBaseUrl } = React.useContext(CategoryContext);
+
   console.log(showFilters);
   return (
     <Container maxWidth="xl" sx={{ overflow: "hidden", position: "relative" }}>
       <Box
         component="div"
-        sx={styles[".categories-filter"]}
         className={`categories-filter ${showFilters ? " active" : ""}`}
       >
         <Button
@@ -49,7 +50,16 @@ const TableCategories = ({
               onClick={() => onCategorySelect(category)}
               className="categories-filter__button"
             >
-              <Box component="div" className="categories-filter__button-body">
+              <Avatar
+                variant={"rounded"}
+                alt="The image"
+                src={categoryImageBaseUrl + category.image}
+                style={{
+                  width: 50,
+                  height: 50,
+                }}
+              />
+              {/* <Box component="div" className="categories-filter__button-body">
                 <img
                   src={
                     "http://localhost:3000/api/v1/uploads/categories/" +
@@ -59,7 +69,7 @@ const TableCategories = ({
                   loading="lazy"
                   className="categories-filter__image"
                 />
-              </Box>
+              </Box> */}
               <Typography variant="button">{category.name}</Typography>
             </Button>
           );
@@ -69,4 +79,4 @@ const TableCategories = ({
   );
 };
 
-export default TableCategories;
+export default ProductCategoriesFilter;

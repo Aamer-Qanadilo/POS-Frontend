@@ -138,8 +138,9 @@ const ProductForm = (props: Props) => {
         }
       } else if (typeof id !== "undefined") {
         if (handleUpdateProduct) {
+          const { image, previewImage, ...inputs } = formik.values;
           await handleUpdateProduct(
-            { _id: id, ...formik.values },
+            { _id: id, ...inputs },
             formik.values.image,
           );
         } else {
