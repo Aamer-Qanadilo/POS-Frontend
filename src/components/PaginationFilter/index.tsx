@@ -29,7 +29,7 @@ type Props = {
   handlePageChange: (page: number) => void;
 };
 
-const TableCustomFooter = ({
+const PaginationFilter = ({
   filters,
   filtered,
   pageSize,
@@ -84,4 +84,4 @@ const TableCustomFooter = ({
   );
 };
 
-export default TableCustomFooter;
+export default PaginationFilter;

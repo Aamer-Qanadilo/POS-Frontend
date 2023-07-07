@@ -1,7 +1,14 @@
 import React from "react";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, Button, TableBody, TableCell, TableRow } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import {
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  TableBody,
+  TableCell,
+  TableRow,
+} from "@mui/material";
 import { tableCellClasses } from "@mui/material/TableCell";
 
 import { styled } from "@mui/material/styles";
@@ -13,6 +20,7 @@ import units from "../../types/units.types.js";
 import { useNavigate } from "react-router";
 import { LoaderContext } from "../../Contexts/LoaderContext";
 import DialogPopup from "../DialogPopup/index";
+import TableCustomBodyPopover from "../TableCustomBodyPopover";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.body}`]: {
@@ -21,9 +29,8 @@ const StyledTableCell = styled(TableCell)(() => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
+  // "&:nth-of-type(odd)": {
+  // },
   // hide last border
   "&:last-child td, &:last-child th": {
     border: 0,
@@ -52,6 +59,9 @@ const TableCustomBody = ({
   onDelete,
 }: Props) => {
   const [deletePopupState, setDeletePopupState] = React.useState(false);
+  const [actionsOpen, setActionsOpen] = React.useState<
+    (EventTarget & HTMLButtonElement) | null
+  >(null);
   const [productIndex, setProductIndex] = React.useState<number | null>(null);
   const { startLoader, stopLoader } = React.useContext(LoaderContext);
 
@@ -72,6 +82,16 @@ const TableCustomBody = ({
       </TableBody>
     );
   }
+
+  const handleOpenMenu = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    setActionsOpen(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setActionsOpen(null);
+  };
 
   const handleUpdate = (_id: string) => {
     navigate(_id);
@@ -108,14 +128,26 @@ const TableCustomBody = ({
         return (
           <StyledTableCell
             align="center"
-            sx={{ maxWidth: "75px", minHeight: "20vh" }}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
-            <img
+            <Avatar
+              variant={"rounded"}
+              alt="The image"
+              src={imagesBaseUrl + itemData}
+              style={{
+                width: 90,
+                height: 90,
+              }}
+            />
+            {/* <img
               src={imagesBaseUrl + itemData}
               alt={item.name}
               loading="lazy"
-              style={{ maxWidth: "100%", objectFit: "contain" }}
-            />
+              style={{ width: "100%", objectFit: "cover" }}
+            /> */}
           </StyledTableCell>
         );
       } else if (typeof itemData !== "object") {
@@ -145,33 +177,24 @@ const TableCustomBody = ({
             >
               {renderCells(item)}
               <StyledTableCell align="center" key={item._id}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    gap: "5px",
-                    color: "#1976d2",
-                    justifyContent: "center",
-                  }}
-                  key={item._id + index}
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  onClick={handleOpenMenu}
                 >
-                  <Button
-                    key={index + item._id + "1"}
-                    onClick={() => handleUpdate(item._id)}
-                  >
-                    <EditIcon color="action" />
-                  </Button>
-                  <Button
-                    key={index + item._id + "2"}
-                    onClick={() => {
-                      handleToggleDelete();
-                      handleProductIndex(index);
-                    }}
-                  >
-                    <DeleteIcon color="error" />
-                  </Button>
-                </Box>
+                  <MoreVertIcon />
+                </IconButton>
               </StyledTableCell>
             </StyledTableRow>
+
+            <TableCustomBodyPopover
+              handleProductIndex={() => handleProductIndex(index)}
+              open={actionsOpen}
+              onToggleDelete={handleToggleDelete}
+              closeActionsPopover={handleCloseMenu}
+              onUpdate={() => handleUpdate(item._id)}
+            />
+
             <DialogPopup
               key={index + item._id + "popup"}
               deleteAlert={

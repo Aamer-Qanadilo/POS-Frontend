@@ -4,9 +4,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 
 import { SelectChangeEvent } from "@mui/material/Select";
-import { Box, Button, Container, Divider, TextField } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import FilterListIcon from "@mui/icons-material/FilterList";
+import { Divider } from "@mui/material";
 import * as _ from "lodash";
 
 import TableHeader from "../TableHeader";
@@ -17,9 +15,12 @@ import units from "../../types/units.types.js";
 
 import TableCustomBody from "../TableCustomBody";
 import paginate from "../../utils/pagination";
+import TableCustomFooter from "../PaginationFilter";
+import TableCategoriesFilter from "../ProductCategoriesFilter";
+
+import filtersTypes from "../../types/filters.types";
+import FilterToolbar from "../FiltersToolbar";
 import "./styles.css";
-import TableCustomFooter from "../TableCustomFooter";
-import TableCategories from "../TableCategories";
 
 interface props {
   dataHeader: { canSort: boolean; label: string; path: string }[];
@@ -27,17 +28,6 @@ interface props {
   handleDelete?: (_id: string) => Promise<void>;
   categoryFilters?: categories[] | null;
   imagesBaseUrl?: string;
-}
-
-interface filtersTypes {
-  currentPage: number;
-  searchQuery: string;
-  selectedCategory: {
-    _id: string;
-    name: string;
-    image: string;
-  } | null;
-  sortColumn: { path: string; order: boolean | "asc" | "desc" };
 }
 
 const CustomTable = ({
@@ -123,52 +113,24 @@ const CustomTable = ({
   const finalData = paginate(sorted, filters.currentPage, pageSize);
 
   return (
-    <TableContainer component={Paper}>
-      <Container maxWidth="md">
-        <Box component="div" className="table-filters">
-          {categoryFilters && (
-            <Button color="inherit" onClick={handleToggleShowFilters}>
-              <FilterListIcon
-                fontSize="large"
-                className="table-filters__icon"
-              />
-            </Button>
-          )}
-          <Box
-            component="div"
-            className="search-form table-filters__search-form"
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="searchQuery"
-              type="search"
-              id="searchQuery"
-              placeholder={
-                categoryFilters ? "Search by Name or Code" : "Search by Name"
-              }
-              onChange={(event) => handleSearch(event?.target.value)}
-              value={filters.searchQuery}
-              className="search-form__textfield"
-            />
-            {!filters.searchQuery && (
-              <label htmlFor="searchQuery" className="search-form__label">
-                <SearchIcon />
-              </label>
-            )}
-          </Box>
-        </Box>
-      </Container>
+    <TableContainer
+      component={Paper}
+      className="test-table"
+      sx={{ width: "80%", margin: "40px auto" }}
+    >
+      <FilterToolbar
+        filters={filters}
+        onSearch={handleSearch}
+        onToggleShowFilters={handleToggleShowFilters}
+        categoryFilters={categoryFilters}
+      />
 
-      <TableCategories
+      <TableCategoriesFilter
         onCategorySelect={handleCategorySelect}
         selectedCategory={filters.selectedCategory}
         categoryFilters={categoryFilters}
         showFilters={showFilters}
       />
-
-      <Divider sx={{ margin: "10px 0" }} />
 
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHeader

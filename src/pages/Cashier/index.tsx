@@ -5,6 +5,8 @@ import { ProductContext } from "../../Contexts/ProductContext";
 import { UserContext } from "../../Contexts/UserContext";
 import { CategoryContext } from "../../Contexts/CategoryContext";
 import { UnitContext } from "../../Contexts/UnitContext";
+import ProductCard from "../../components/ProductCard";
+import { Container } from "@mui/system";
 
 type Props = {};
 
@@ -38,7 +40,11 @@ const Cashier = (props: Props) => {
     handleFetchData();
   }, []);
 
-  return <div>Cashier</div>;
+  return (
+    <Container sx={{ marginTop: "25px" }} maxWidth="lg">
+      <ProductCard></ProductCard>
+    </Container>
+  );
 };
 
 export default Cashier;

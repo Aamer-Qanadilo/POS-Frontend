@@ -1,5 +1,12 @@
 .table__header-cell_sortable {
   cursor: pointer;
   color: #c5cef7;
-  text-decoration: underline;
+}
+
+.table__header-cell_sortable:hover {
+  font-weight: bold;
+}
+
+.table__header-cell_selected {
+  font-weight: bold;
 }

@@ -6,13 +6,13 @@ import TableRow from "@mui/material/TableRow";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-import { Box } from "@mui/material";
+import { Box, TableSortLabel } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import "./styles.css";
 interface sortType {
   path: string;
-  order: boolean | "asc" | "desc";
+  order: "asc" | "desc";
 }
 
 type Props = {
@@ -25,10 +25,22 @@ type Props = {
   sortColumn: sortType;
 };
 
+const visuallyHidden = {
+  border: 0,
+  margin: -1,
+  padding: 0,
+  width: "1px",
+  height: "1px",
+  overflow: "hidden",
+  position: "absolute",
+  whiteSpace: "nowrap",
+  clip: "rect(0 0 0 0)",
+};
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.action.hover,
+    padding: "20px 0",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -61,36 +73,39 @@ function TableHeader({ data, onSort, sortColumn }: Props) {
     <TableHead>
       <TableRow className="table__header">
         {data?.map((item) => {
-          return item.canSort ? (
-            <TableCell
+          return (
+            <StyledTableCell
               key={item.path}
               align="center"
-              onClick={() => raiseSort(item.path)}
-              className="table__header-cell table__header-cell_sortable"
+              onClick={() => (item.canSort ? raiseSort(item.path) : null)}
+              className={`table__header-cell ${
+                item.canSort ? "table__header-cell_sortable" : ""
+              }`}
             >
               <Box
+                component="div"
                 sx={{
                   display: "flex",
-                  color: "#1976d2",
                   justifyContent: "center",
                 }}
+                className={
+                  item.path === sortColumn.path
+                    ? "table__header-cell_selected"
+                    : ""
+                }
               >
-                {item.label} {renderSortIcon(item)}
+                {item.label} {item.canSort ? renderSortIcon(item) : null}
               </Box>
-            </TableCell>
-          ) : (
-            <TableCell
-              key={item.path}
-              align="center"
-              className="table__header-cell"
-            >
-              {item.label}
-            </TableCell>
+            </StyledTableCell>
           );
         })}
-        <TableCell key={"action"} align="center" className="table__header-cell">
+        <StyledTableCell
+          key={"action"}
+          align="center"
+          className="table__header-cell"
+        >
           Actions
-        </TableCell>
+        </StyledTableCell>
       </TableRow>
     </TableHead>
   );
