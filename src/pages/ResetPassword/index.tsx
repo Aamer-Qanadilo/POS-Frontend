@@ -6,87 +6,91 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider/Divider";
 import { useFormik } from "formik";
 
-import FormContainer from "../FormContainer";
+import FormContainer from "../../components/FormContainer";
 import { toast } from "react-toastify";
 import httpCommon from "../../http-common";
 
 type Props = {};
 interface errors {
   email?: string;
-  password?: string;
-  cPassword?: string;
+  code?: string;
+  newPassword?: string;
 }
 
 interface inputs {
   email: string;
-  password: string;
-  cPassword: string;
+  code: string;
+  newPassword: string;
 }
+
+const initialValues: inputs = {
+  email: "",
+  code: "",
+  newPassword: "",
+};
 
 const validate = (values: inputs) => {
   const errors: errors = {};
 
   if (!values.email) {
-    errors.email = "Required, please enter a valid Email";
+    errors.email = "Required, please enter a valid Email.";
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = "Invalid Email address";
+    errors.email = "Invalid Email address.";
   }
 
-  if (!values.password) {
-    errors.password = "Required, password should be Minimum eight characters.";
+  if (!values.code) {
+    errors.code = "Required, please enter a valid access code.";
+  } else if (values.code.length < 21) {
+    errors.code = "Invalid access code, please check your Email.";
+  }
+
+  if (!values.newPassword) {
+    errors.newPassword =
+      "Required, password should be Minimum eight characters.";
   } else if (
     !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
-      values.password,
+      values.newPassword,
     )
   ) {
-    errors.password =
-      "Password should be Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character";
-  }
-
-  if (!values.cPassword) {
-    errors.cPassword = "Required, password should be Minimum eight characters.";
-  } else if (values.password !== values.cPassword) {
-    errors.cPassword = "Both passwords should be identical";
+    errors.newPassword =
+      "Password should be Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.";
   }
 
   return errors;
 };
 
-function Register({}: Props) {
+function ResetPassword({}: Props) {
   const navigate = useNavigate();
 
   const handleSubmit = async (inputs: inputs) => {
     try {
-      const { data } = await httpCommon.post("/auth/signup", inputs);
+      const { data } = await httpCommon.patch("/auth/forget-password", inputs);
 
       if (data.message === "success") {
-        toast.success("Registered Successfully!");
-        toast.warning("Ask the admin to confirm your account!");
+        toast.success("Password changed successfully!");
         navigate("/login");
-      } else if (data.message === "email already exists") {
-        toast.error("Email is already used!");
+      } else if (data.message === "failed" && data.error) {
+        toast.error(data.error);
       } else {
-        toast.error(data.message);
+        toast.error(data.message || "Something went wrong, please try again!");
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Something went wrong, please try again!");
+    }
   };
 
   const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-      cPassword: "",
-    },
+    initialValues: initialValues,
     validate,
     onSubmit: handleSubmit,
   });
 
   React.useEffect(() => {
-    document.title = "POS-Foothill | Register";
+    document.title = "POS-Foothill | Reset Your Password";
   }, []);
 
   return (
-    <FormContainer FormHeader="Register">
+    <FormContainer FormHeader="Reset My Password">
       <Box
         component="form"
         onSubmit={formik.handleSubmit}
@@ -100,6 +104,7 @@ function Register({}: Props) {
           id="email"
           label="Email Address"
           name="email"
+          type="email"
           autoComplete="email"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -108,50 +113,48 @@ function Register({}: Props) {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
         />
+
         <TextField
           margin="normal"
           required
           fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
+          id="code"
+          label="Access Code"
+          name="code"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.password}
-          error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password}
+          value={formik.values.code}
+          autoFocus
+          error={formik.touched.code && Boolean(formik.errors.code)}
+          helperText={formik.touched.code && formik.errors.code}
         />
+
         <TextField
           margin="normal"
           required
           fullWidth
-          name="cPassword"
-          label="Confirm Password"
+          name="newPassword"
+          label="New Password"
           type="password"
-          id="cPassword"
+          id="newPassword"
           autoComplete="current-password"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.cPassword}
-          error={formik.touched.cPassword && Boolean(formik.errors.cPassword)}
-          helperText={formik.touched.cPassword && formik.errors.cPassword}
+          value={formik.values.newPassword}
+          error={
+            formik.touched.newPassword && Boolean(formik.errors.newPassword)
+          }
+          helperText={formik.touched.newPassword && formik.errors.newPassword}
         />
+
         <Button
           type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Sign Up
+          Submit
         </Button>
-        <Box textAlign="center">
-          Already have an account?{" "}
-          <Link to="/login" className="form__anchor">
-            Login.
-          </Link>
-        </Box>
 
         <Divider sx={{ margin: "25px 0 0" }} />
       </Box>
@@ -159,4 +162,4 @@ function Register({}: Props) {
   );
 }
 
-export default Register;
+export default ResetPassword;

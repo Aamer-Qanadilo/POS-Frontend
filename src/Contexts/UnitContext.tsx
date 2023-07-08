@@ -91,8 +91,6 @@ export const UnitProvider = ({ children }: props) => {
         },
       );
 
-      console.log(data);
-
       if (data.message === "success") {
         let newUnits = [...units];
         newUnits = newUnits.map((unit) =>

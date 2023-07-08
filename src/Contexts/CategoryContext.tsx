@@ -106,8 +106,6 @@ export const CategoryProvider = ({ children }: props) => {
         headers,
       );
 
-      console.log(data);
-
       if (data.message === "success") {
         let newCategories = [...categories];
         newCategories = newCategories.map((category) =>

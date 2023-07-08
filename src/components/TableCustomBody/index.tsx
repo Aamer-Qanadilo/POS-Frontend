@@ -13,6 +13,7 @@ import { tableCellClasses } from "@mui/material/TableCell";
 
 import { styled } from "@mui/material/styles";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 import products from "../../types/products.types.js";
 import categories from "../../types/categories.types.js";
@@ -21,6 +22,8 @@ import { useNavigate } from "react-router";
 import { LoaderContext } from "../../Contexts/LoaderContext";
 import DialogPopup from "../DialogPopup/index";
 import TableCustomBodyPopover from "../TableCustomBodyPopover";
+
+import NotFoundData from "../NotFoundData/index";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.body}`]: {
@@ -72,11 +75,7 @@ const TableCustomBody = ({
       <TableBody>
         <StyledTableRow>
           <StyledTableCell align="center" colSpan={headers.length + 1}>
-            <img
-              src="/assets/images/no-match.png"
-              alt="No matching data found"
-              style={{ width: "50%" }}
-            />
+            <NotFoundData />
           </StyledTableCell>
         </StyledTableRow>
       </TableBody>
@@ -124,6 +123,11 @@ const TableCustomBody = ({
       const key = header.path;
       const itemData = item[key as keyof typeof item];
 
+      let date = null;
+      if (key === "updatedAt") {
+        date = moment(itemData).format("l LTS");
+      }
+
       if ("image" in item && header.path === "image") {
         return (
           <StyledTableCell
@@ -153,7 +157,7 @@ const TableCustomBody = ({
       } else if (typeof itemData !== "object") {
         return (
           <StyledTableCell align="center" sx={{ minHeight: "20vh" }}>
-            {itemData}
+            {date ? date : itemData}
           </StyledTableCell>
         );
       } else if (typeof itemData === "object") {

@@ -2,6 +2,7 @@ import jwtDecode from "jwt-decode";
 import * as React from "react";
 import axios from "axios";
 import httpCommon from "../http-common";
+import { LoaderContext } from "./LoaderContext";
 
 interface props {
   children: React.ReactNode;
@@ -16,8 +17,10 @@ export const UserContext = React.createContext<ContextValues>({});
 
 export const UserProvider = ({ children }: props) => {
   const [user, setUser] = React.useState<string | null>();
+  const { startLoader, stopLoader } = React.useContext(LoaderContext);
 
   const handleUser = async (token: string) => {
+    startLoader();
     try {
       const decoded = await jwtDecode(token);
 
@@ -29,8 +32,8 @@ export const UserProvider = ({ children }: props) => {
         });
 
         if (data.message == "success") {
-          localStorage.setItem("token", token);
           setUser(token);
+          localStorage.setItem("token", token);
         }
       }
     } catch (error) {
@@ -46,6 +49,10 @@ export const UserProvider = ({ children }: props) => {
       handleUser(tokenItem);
     }
   }, []);
+
+  React.useEffect(() => {
+    stopLoader();
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ user, handleUser }}>

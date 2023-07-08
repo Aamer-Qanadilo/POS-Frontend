@@ -7,6 +7,15 @@ import { CategoryContext } from "../../Contexts/CategoryContext";
 import { UnitContext } from "../../Contexts/UnitContext";
 import ProductCard from "../../components/ProductCard";
 import { Container } from "@mui/system";
+import useFilters from "../../hooks/useFilters";
+import filtersTypes from "../../types/filters.types";
+import { SelectChangeEvent } from "@mui/material";
+import filterData from "../../utils/filterData";
+import FilterToolbar from "../../components/FiltersToolbar";
+import ProductCategoriesFilter from "../../components/ProductCategoriesFilter";
+import PaginationFilter from "../../components/PaginationFilter";
+import ProductCardContainer from "../../components/ProductCardContainer";
+import products from "../../types/products.types";
 
 type Props = {};
 
@@ -16,7 +25,40 @@ const Cashier = (props: Props) => {
   const { handleFetchCategories, categories } =
     React.useContext(CategoryContext);
   const { handleFetchUnits, units } = React.useContext(UnitContext);
+
   const { startLoader, stopLoader } = React.useContext(LoaderContext);
+
+  const [filters, filtersDispatch] = useFilters({ pageSize: 8 });
+  const [showFilters, setShowFilters] = React.useState<boolean>(false);
+
+  const handleToggleShowFilters = () => {
+    setShowFilters(!showFilters);
+  };
+
+  const handlePageSizeChange = (event: SelectChangeEvent) => {
+    filtersDispatch({
+      type: "change-size",
+      pageSize: event.target.value as unknown as number,
+    });
+  };
+
+  const handlePageChange = (page: number) => {
+    filtersDispatch({ type: "change-page", page });
+  };
+
+  const handleCategorySelect = (category: filtersTypes["selectedCategory"]) => {
+    filtersDispatch({ type: "select-category", category });
+  };
+
+  const handleSearch = (query: string) => {
+    filtersDispatch({ type: "search-query", query });
+  };
+
+  const handleSort = (sortColumn: filtersTypes["sortColumn"]) => {
+    filtersDispatch({ type: "sort-by", sortInfo: sortColumn });
+  };
+
+  const { filtered, finalData } = filterData({ filters, data: products });
 
   const handleFetchData = async () => {
     if (user) {
@@ -42,7 +84,29 @@ const Cashier = (props: Props) => {
 
   return (
     <Container sx={{ marginTop: "25px" }} maxWidth="lg">
-      <ProductCard></ProductCard>
+      <FilterToolbar
+        filters={filters}
+        onSearch={handleSearch}
+        onToggleShowFilters={handleToggleShowFilters}
+        categoryFilters={categories}
+      />
+
+      <ProductCategoriesFilter
+        onCategorySelect={handleCategorySelect}
+        selectedCategory={filters.selectedCategory}
+        categoryFilters={categories}
+        showFilters={showFilters}
+      />
+
+      <ProductCardContainer products={finalData as unknown as products[]} />
+
+      <PaginationFilter
+        filtered={filtered}
+        filters={filters}
+        handlePageChange={handlePageChange}
+        handlePageSizeChange={handlePageSizeChange}
+        pageSize={filters.pageSize}
+      />
     </Container>
   );
 };

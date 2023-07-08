@@ -114,8 +114,6 @@ const UnitForm = (props: Props) => {
     }
   };
 
-  console.log(formik.errors);
-
   React.useEffect(() => {
     document.title = "POS-Foothill | Unit Form";
     FetchUnit();

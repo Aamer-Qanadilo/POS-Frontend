@@ -14,13 +14,14 @@ import categories from "../../types/categories.types.js";
 import units from "../../types/units.types.js";
 
 import TableCustomBody from "../TableCustomBody";
-import paginate from "../../utils/pagination";
 import TableCustomFooter from "../PaginationFilter";
 import TableCategoriesFilter from "../ProductCategoriesFilter";
 
 import filtersTypes from "../../types/filters.types";
 import FilterToolbar from "../FiltersToolbar";
 import "./styles.css";
+import useFilters from "../../hooks/useFilters";
+import filterData from "../../utils/filterData";
 
 interface props {
   dataHeader: { canSort: boolean; label: string; path: string }[];
@@ -37,14 +38,8 @@ const CustomTable = ({
   imagesBaseUrl,
   handleDelete,
 }: props) => {
-  const [filters, setFilters] = React.useState<filtersTypes>({
-    currentPage: 1,
-    searchQuery: "",
-    selectedCategory: null,
-    sortColumn: { path: "name", order: "asc" },
-  });
+  const [filters, filtersDispatch] = useFilters();
 
-  const [pageSize, setPageSize] = React.useState<number>(3);
   const [showFilters, setShowFilters] = React.useState<boolean>(false);
 
   const handleToggleShowFilters = () => {
@@ -52,65 +47,29 @@ const CustomTable = ({
   };
 
   const handlePageSizeChange = (event: SelectChangeEvent) => {
-    setPageSize(event.target.value as unknown as number);
-    setFilters({
-      ...filters,
-      currentPage: 1,
+    filtersDispatch({
+      type: "change-size",
+      pageSize: event.target.value as unknown as number,
     });
   };
 
   const handlePageChange = (page: number) => {
-    setFilters({ ...filters, currentPage: page });
+    filtersDispatch({ type: "change-page", page });
   };
 
   const handleCategorySelect = (category: filtersTypes["selectedCategory"]) => {
-    setFilters({
-      ...filters,
-      currentPage: 1,
-      searchQuery: "",
-      selectedCategory: category,
-    });
+    filtersDispatch({ type: "select-category", category });
   };
 
   const handleSearch = (query: string) => {
-    setFilters({
-      ...filters,
-      currentPage: 1,
-      searchQuery: query,
-      selectedCategory: null,
-    });
+    filtersDispatch({ type: "search-query", query });
   };
 
   const handleSort = (sortColumn: filtersTypes["sortColumn"]) => {
-    console.log(sortColumn);
-    setFilters({
-      ...filters,
-      sortColumn: sortColumn,
-      currentPage: 1,
-    });
+    filtersDispatch({ type: "sort-by", sortInfo: sortColumn });
   };
 
-  let filtered = data;
-  if (filters.searchQuery)
-    filtered = data.filter(
-      (d) =>
-        d.name.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
-        ("code" in d &&
-          d.code.toLowerCase().includes(filters.searchQuery.toLowerCase())),
-    );
-  else if (filters.selectedCategory && filters.selectedCategory)
-    filtered = data.filter(
-      (d) =>
-        "category" in d && d.category._id === filters.selectedCategory?._id,
-    );
-
-  const sorted = _.orderBy(
-    filtered,
-    [filters.sortColumn.path],
-    [filters.sortColumn.order],
-  );
-
-  const finalData = paginate(sorted, filters.currentPage, pageSize);
+  const { filtered, finalData } = filterData({ filters, data });
 
   return (
     <TableContainer
@@ -153,7 +112,7 @@ const CustomTable = ({
         filters={filters}
         handlePageChange={handlePageChange}
         handlePageSizeChange={handlePageSizeChange}
-        pageSize={pageSize}
+        pageSize={filters.pageSize}
       />
     </TableContainer>
   );

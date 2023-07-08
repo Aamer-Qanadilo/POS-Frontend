@@ -30,14 +30,12 @@ const FileField = ({
 
   const selectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files as FileList;
-    console.log(selectedFiles);
     onImageChange(selectedFiles?.[0]);
     setPreviewImage(URL.createObjectURL(selectedFiles?.[0]));
   };
 
   const handleDragFile = (event: React.DragEvent<HTMLLabelElement>) => {
     event.preventDefault();
-    console.log(event.dataTransfer.files);
     const selectedFiles = event.dataTransfer.files as FileList;
 
     onImageChange(selectedFiles?.[0]);

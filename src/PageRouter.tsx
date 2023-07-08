@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Layout from "./components/Layout";
-import NotFound from "./components/NotFound";
+import NotFound from "./pages/NotFound";
 import Cashier from "./pages/Cashier";
 import Products from "./pages/Products";
 import Categories from "./pages/Categories";
@@ -12,25 +12,27 @@ import { UserContext } from "./Contexts/UserContext";
 import CategoryForm from "./components/CategoryForm";
 import UnitForm from "./components/UnitForm";
 import ProductForm from "./components/ProductForm";
-import ForgetPassword from "./components/ForgetPassword";
-import ResetPassword from "./components/ResetPassword";
+import ForgetPassword from "./pages/ForgetPassword";
+import ResetPassword from "./pages/ResetPassword";
+import { LoaderContext } from "./Contexts/LoaderContext";
 
 type Props = {};
 
 const PageRouter = (props: Props) => {
   const { user } = React.useContext(UserContext);
+  const { loader } = React.useContext(LoaderContext);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          {!user ? (
+          {!user && !loader ? (
             <>
+              <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/" element={<Navigate to="/login" />} />
             </>
           ) : (
             <>
@@ -43,8 +45,8 @@ const PageRouter = (props: Props) => {
               <Route path="/units/:id" element={<UnitForm />} />
             </>
           )}
-          <Route path="not-found" element={<NotFound />} />
-          <Route path="*" element={<Navigate to="/not-found" />} />
+          {/* <Route path="not-found" element={} /> */}
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
