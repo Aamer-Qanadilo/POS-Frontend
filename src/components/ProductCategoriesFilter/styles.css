@@ -1,3 +1,8 @@
+.categories-container {
+  position: relative;
+  overflow: hidden;
+}
+
 .categories-filter {
   display: flex;
   position: relative;
@@ -8,12 +13,13 @@
   box-sizing: border-box;
   opacity: 0;
   height: 0;
-  transition: all 0.3s ease-in-out;
+  transition: all 0s ease-in;
 }
 
 .categories-filter.active {
   opacity: 1;
   height: auto;
+  transition: all 0.3s ease-in;
 }
 
 .categories-filter__button {
@@ -27,7 +33,6 @@
 .categories-filter__button-body {
   width: 40px;
   height: 40px;
-  /* border-radius: 50%; */
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -37,4 +42,38 @@
   width: 100%;
   object-fit: contain;
   /* mix-blend-mode: color-burn; */
+}
+
+.categories-filter__mouse-icon {
+  position: absolute;
+  top: 15%;
+  right: 0;
+  backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.277);
+  align-items: center;
+  width: 55px;
+  height: 65%;
+  border-top-right-radius: 5px;
+  padding: 0 5px;
+}
+
+.categories-filter__mouse-icon-image {
+  position: relative;
+  width: 35;
+  height: 35;
+  transform: rotate(90deg);
+  animation: categoriesMouseScrollIcon 1.5s infinite 0s;
+  transition: all 0.2s ease-in-out;
+}
+
+@keyframes categoriesMouseScrollIcon {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 30%;
+
+    /* -webkit-transform: scale3d(5, 5, 5);
+    transform: scale3d(5); */
+  }
 }

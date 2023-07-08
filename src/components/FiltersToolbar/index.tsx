@@ -15,6 +15,8 @@ import React from "react";
 import categories from "../../types/categories.types";
 import filtersTypes from "../../types/filters.types";
 
+import "./styles.css";
+
 type Props = {
   categoryFilters?: categories[] | null;
   filters: filtersTypes;
@@ -24,6 +26,7 @@ type Props = {
 
 const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
   width: 350,
+  backgroundColor: "rgba(243, 240, 240, 0.35)",
   transition: theme.transitions.create(["box-shadow", "width"], {
     easing: theme.transitions.easing.easeInOut,
     duration: theme.transitions.duration.shorter,

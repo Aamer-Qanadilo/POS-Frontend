@@ -1,0 +1,10 @@
+.not-found {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  min-height: 80vh;
+  max-height: 100vh;
+  background-color: inherit;
+  overflow: hidden;
+}

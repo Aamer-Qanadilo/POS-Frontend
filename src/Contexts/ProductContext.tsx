@@ -51,7 +51,6 @@ export const ProductProvider = ({ children }: props) => {
   };
 
   const handleFetchProducts = async () => {
-    console.log("Getting products");
     try {
       const { data } = await httpCommon.get("/product", {
         headers: { ...headers },
@@ -71,16 +70,12 @@ export const ProductProvider = ({ children }: props) => {
     imageFile?: File,
   ) => {
     try {
-      console.log(inputs);
-
       const { data } = await FileUploadService.newUpload(
         inputs,
         "/product",
         imageFile,
         headers,
       );
-
-      console.log(data, inputs);
 
       if (data.message === "success") {
         const newProducts = [...products];
@@ -128,7 +123,7 @@ export const ProductProvider = ({ children }: props) => {
         toast.error("Something went wrong, please check your inputs");
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong, please check your inputs");
     }
 
     if (stopLoader) stopLoader();
@@ -144,7 +139,6 @@ export const ProductProvider = ({ children }: props) => {
         let newProducts = [...products];
         newProducts = newProducts.filter((product) => product._id !== _id);
         toast.success("Product Deleted successfully!");
-        console.log(products, _id, data.data, newProducts);
         setProducts(newProducts);
       } else {
         toast.error(data.message || "Something went wrong, please try again");

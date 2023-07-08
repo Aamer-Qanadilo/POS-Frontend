@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider/Divider";
 
-import FormContainer from "../FormContainer";
+import FormContainer from "../../components/FormContainer";
 import "./styles.css";
 import { useFormik } from "formik";
 import axios from "axios";

@@ -15,6 +15,7 @@ export default interface products {
     baseUnit: string;
     conversionFactor: number;
   };
+  updatedAt: Date;
 }
 
 export interface productUploadType {

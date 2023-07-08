@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider/Divider";
 import { useFormik } from "formik";
 
-import FormContainer from "../FormContainer";
+import FormContainer from "../../components/FormContainer";
 import { toast } from "react-toastify";
 import httpCommon from "../../http-common";
 import { LoaderContext } from "../../Contexts/LoaderContext";

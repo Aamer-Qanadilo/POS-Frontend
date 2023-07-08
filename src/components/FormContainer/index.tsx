@@ -20,21 +20,16 @@ type Props = {
 const defaultTheme = createTheme();
 
 const FormContainer = ({ children, FormHeader, maxWidth, ...props }: Props) => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container
         component="main"
         maxWidth={maxWidth || "xs"}
-        sx={{ backgroundColor: "white", borderRadius: "15px" }}
+        sx={{
+          backgroundColor: "white",
+          borderRadius: "15px",
+          boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+        }}
       >
         {/* <CssBaseline /> */}
         <Box
