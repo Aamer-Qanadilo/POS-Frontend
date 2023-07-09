@@ -1,30 +1,30 @@
-import React from "react";
 import {
   Avatar,
-  Box,
-  Button,
   Card,
   CardActions,
   CardContent,
   Divider,
   Grid,
+  IconButton,
   Typography,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
+import React from "react";
 import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+import productType from "../../types/products.types";
 import { ProductContext } from "../../Contexts/ProductContext";
 import { formatCurrency } from "../../utils/formatCurrency";
-import productType from "../../types/products.types";
 
 type Props = {
   index: number;
   product: productType;
 };
 
-const ProductCard = ({ index, product }: Props) => {
+const CartProductCard = ({ index, product }: Props) => {
   const { productImageBaseUrl } = React.useContext(ProductContext);
-  const { getItemQuantity, increaseProductQuantity } =
-    React.useContext(ShoppingCartContext);
+
+  const { openedCart } = React.useContext(ShoppingCartContext);
 
   const {
     image,
@@ -34,39 +34,29 @@ const ProductCard = ({ index, product }: Props) => {
   } = product;
 
   return (
-    <Grid item lg={3} md={4} sm={6}>
+    <Grid item sm={12}>
       <Card
         key={index}
         sx={{
+          display: "flex",
           transition: "0.3s",
-          boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
-          "&:hover": {
-            boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
-          },
+          //   boxShadow:
+          //     "0 2px 15px -3px rgba(0, 0, 0, 0.2), 0 10px 20px -2px rgba(0, 0, 0, 0.2)",
+          //   "&:hover": {
+          //     boxShadow: 4,
+          //   },
           padding: "30px 20px",
         }}
       >
-        <Box
-          component={"div"}
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "10px 0",
-            borderRadius: "5px",
+        <Avatar
+          variant={"rounded"}
+          alt="The image"
+          src={productImageBaseUrl + image}
+          style={{
+            width: 80,
+            height: 80,
           }}
-        >
-          <Avatar
-            variant={"rounded"}
-            alt="The image"
-            src={productImageBaseUrl + image}
-            style={{
-              width: 120,
-              height: 120,
-            }}
-          />
-        </Box>
+        />
 
         <CardContent
           sx={{
@@ -93,6 +83,7 @@ const ProductCard = ({ index, product }: Props) => {
           >
             {name}
           </Typography>
+
           <Typography
             className={"MuiTypography--heading"}
             variant={"subtitle2"}
@@ -102,6 +93,7 @@ const ProductCard = ({ index, product }: Props) => {
             {formatCurrency(price) + " / " + unitOfMeasureName}
           </Typography>
         </CardContent>
+
         <Divider
           variant="middle"
           sx={{
@@ -110,22 +102,20 @@ const ProductCard = ({ index, product }: Props) => {
           light
           flexItem
         />
-        <CardActions>
-          {getItemQuantity(product._id) ? (
-            <p>Add more</p>
-          ) : (
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={() => increaseProductQuantity(product)}
-            >
-              Add to Cart
-            </Button>
-          )}
-        </CardActions>
+
+        <IconButton
+          sx={{ color: "error.main" }}
+          onClick={() => {
+            //   closeActionsPopover();
+            //   onToggleDelete();
+            //   handleProductIndex();
+          }}
+        >
+          <DeleteIcon color="error" />
+        </IconButton>
       </Card>
     </Grid>
   );
 };
 
-export default ProductCard;
+export default CartProductCard;

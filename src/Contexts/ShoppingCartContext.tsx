@@ -4,6 +4,7 @@ import products from "../types/products.types";
 import ShoppingCart from "../components/ShoppingCart";
 import { v4 as uuid } from "uuid";
 import _ from "lodash";
+import { toast } from "react-toastify";
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
@@ -29,6 +30,9 @@ type ShoppingCartContext = {
   getItemQuantity(productId: string): number;
   cartItemsQuantity: () => number;
   createCart: () => void;
+  handleOpenedCart: (cartId: CartType["id"]) => void;
+  increaseProductQuantity: (product: products, quantity?: number) => void;
+  isCartEmpty: boolean;
   cartsQuantity: number;
   carts: CartType[];
   openedCart: CartType | null;
@@ -39,9 +43,11 @@ export const ShoppingCartContext = createContext({} as ShoppingCartContext);
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [carts, setCarts] = useLocalStorage<CartType[]>("carts", []);
-  const [openedCart, setOpenedCart] = useState<CartType | null>(null);
+  const [openedCartId, setOpenedCartId] = useState<string>("");
 
   const cartsQuantity = carts.length;
+
+  let openedCart = carts.find((cart) => cart.id === openedCartId) || null;
 
   const cartItemsQuantity = () => {
     const cart = carts.find((cart) => cart.id === openedCart?.id);
@@ -75,22 +81,68 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     cartsHolder.push(newCard);
 
     setCarts(cartsHolder);
-    setOpenedCart(newCard);
-
-    console.log(newCard);
+    setOpenedCartId(newCard.id);
   };
+
+  const handleOpenedCart = (cartId: CartType["id"]) => {
+    const cart = carts.find((cart) => cart.id === cartId) || null;
+
+    setOpenedCartId(cart?.id || "");
+  };
+
+  const updateCarts = (cart: CartType) => {
+    const cartsHolder = [...carts];
+
+    const cartIndex = cartsHolder.findIndex((item) => item.id === cart.id);
+
+    if (cartIndex === -1) {
+      cartsHolder.push(cart);
+    } else {
+      cartsHolder[cartIndex] = cart;
+    }
+
+    setCarts(cartsHolder);
+  };
+
+  const increaseProductQuantity = (product: products, quantity?: number) => {
+    if (!openedCart) {
+      toast.error("Please choose a cart to add product.");
+      return;
+    }
+
+    const cart = { ...openedCart };
+
+    const productItemIndex = cart.products.findIndex(
+      (item) => item._id === product._id,
+    );
+
+    if (productItemIndex === -1) {
+      cart?.products.push({ ...product, quantity: 1 });
+    } else {
+      const productQuantity = cart.products[productItemIndex].quantity || 0;
+
+      cart.products[productItemIndex].quantity =
+        quantity || productQuantity + 1;
+    }
+
+    updateCarts(cart);
+  };
+
+  const isCartEmpty = !openedCart || !openedCart.products.length;
 
   return (
     <ShoppingCartContext.Provider
       value={{
         getItemQuantity,
         cartItemsQuantity,
-        // increaseCartQuantity,
+        increaseProductQuantity,
         // decreaseCartQuantity,
         // removeFromCart,
         openCart,
         closeCart,
         createCart,
+        handleOpenedCart,
+        isCartEmpty,
         carts,
         cartsQuantity,
         openedCart,

@@ -14,20 +14,20 @@ const Layout = (props: Props) => {
 
   return (
     <React.Fragment>
-      <ShoppingCartProvider>
-        <Navbar />
-        {user ? (
-          <ProductProvider>
-            <CategoryProvider>
-              <UnitProvider>
+      <Navbar />
+      {user ? (
+        <ProductProvider>
+          <CategoryProvider>
+            <UnitProvider>
+              <ShoppingCartProvider>
                 <Outlet />
-              </UnitProvider>
-            </CategoryProvider>
-          </ProductProvider>
-        ) : (
-          <Outlet />
-        )}
-      </ShoppingCartProvider>
+              </ShoppingCartProvider>
+            </UnitProvider>
+          </CategoryProvider>
+        </ProductProvider>
+      ) : (
+        <Outlet />
+      )}
     </React.Fragment>
   );
 };
