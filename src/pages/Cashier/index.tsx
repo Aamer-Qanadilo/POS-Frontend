@@ -16,6 +16,7 @@ import ProductCategoriesFilter from "../../components/ProductCategoriesFilter";
 import PaginationFilter from "../../components/PaginationFilter";
 import ProductCardContainer from "../../components/ProductCardContainer";
 import products from "../../types/products.types";
+import CartIcon from "../../components/CartIcon";
 
 type Props = {};
 
@@ -83,31 +84,35 @@ const Cashier = (props: Props) => {
   }, []);
 
   return (
-    <Container sx={{ marginTop: "25px" }} maxWidth="lg">
-      <FilterToolbar
-        filters={filters}
-        onSearch={handleSearch}
-        onToggleShowFilters={handleToggleShowFilters}
-        categoryFilters={categories}
-      />
+    <>
+      <Container sx={{ marginTop: "25px" }} maxWidth="lg">
+        <FilterToolbar
+          filters={filters}
+          onSearch={handleSearch}
+          onToggleShowFilters={handleToggleShowFilters}
+          categoryFilters={categories}
+        />
 
-      <ProductCategoriesFilter
-        onCategorySelect={handleCategorySelect}
-        selectedCategory={filters.selectedCategory}
-        categoryFilters={categories}
-        showFilters={showFilters}
-      />
+        <ProductCategoriesFilter
+          onCategorySelect={handleCategorySelect}
+          selectedCategory={filters.selectedCategory}
+          categoryFilters={categories}
+          showFilters={showFilters}
+        />
 
-      <ProductCardContainer products={finalData as unknown as products[]} />
+        <ProductCardContainer products={finalData as unknown as products[]} />
 
-      <PaginationFilter
-        filtered={filtered}
-        filters={filters}
-        handlePageChange={handlePageChange}
-        handlePageSizeChange={handlePageSizeChange}
-        pageSize={filters.pageSize}
-      />
-    </Container>
+        <PaginationFilter
+          filtered={filtered}
+          filters={filters}
+          handlePageChange={handlePageChange}
+          handlePageSizeChange={handlePageSizeChange}
+          pageSize={filters.pageSize}
+        />
+      </Container>
+
+      <CartIcon />
+    </>
   );
 };
 

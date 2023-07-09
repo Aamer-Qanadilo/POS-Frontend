@@ -1,24 +1,7 @@
 import React from "react";
 
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Container,
-  Divider,
-  Grid,
-  IconButton,
-  Typography,
-} from "@mui/material";
-import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import { Container, Grid } from "@mui/material";
 
-import { ProductContext } from "../../Contexts/ProductContext";
-import { formatCurrency } from "../../utils/formatCurrency";
 import ProductCard from "../ProductCard";
 import productType from "../../types/products.types";
 import NotFoundData from "../NotFoundData";
