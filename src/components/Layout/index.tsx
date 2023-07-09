@@ -5,6 +5,7 @@ import { UserContext } from "../../Contexts/UserContext";
 import { ProductProvider } from "../../Contexts/ProductContext";
 import { CategoryProvider } from "../../Contexts/CategoryContext";
 import { UnitProvider } from "../../Contexts/UnitContext";
+import { ShoppingCartProvider } from "../../Contexts/ShoppingCartContext";
 
 type Props = {};
 
@@ -13,18 +14,20 @@ const Layout = (props: Props) => {
 
   return (
     <React.Fragment>
-      <Navbar />
-      {user ? (
-        <ProductProvider>
-          <CategoryProvider>
-            <UnitProvider>
-              <Outlet />
-            </UnitProvider>
-          </CategoryProvider>
-        </ProductProvider>
-      ) : (
-        <Outlet />
-      )}
+      <ShoppingCartProvider>
+        <Navbar />
+        {user ? (
+          <ProductProvider>
+            <CategoryProvider>
+              <UnitProvider>
+                <Outlet />
+              </UnitProvider>
+            </CategoryProvider>
+          </ProductProvider>
+        ) : (
+          <Outlet />
+        )}
+      </ShoppingCartProvider>
     </React.Fragment>
   );
 };
