@@ -26,7 +26,7 @@ type Props = {
 const CartProductCard = ({ index, product }: Props) => {
   const { productImageBaseUrl } = React.useContext(ProductContext);
 
-  const { openedCart, removeFromCart } = React.useContext(ShoppingCartContext);
+  const { getItemQuantity } = React.useContext(ShoppingCartContext);
 
   const {
     image,
@@ -34,6 +34,8 @@ const CartProductCard = ({ index, product }: Props) => {
     price,
     unitOfMeasure: { name: unitOfMeasureName },
   } = product;
+
+  const productQuantity = getItemQuantity(product._id);
 
   return (
     <Grid item sm={12}>
@@ -95,7 +97,9 @@ const CartProductCard = ({ index, product }: Props) => {
               color="Highlight"
               sx={{ fontWeight: "bold" }}
             >
-              {formatCurrency(price) + " / " + unitOfMeasureName}
+              {`${formatCurrency(
+                productQuantity * price,
+              )} / ${productQuantity} * ${unitOfMeasureName}`}
             </Typography>
           </CardContent>
 

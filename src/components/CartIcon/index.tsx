@@ -5,7 +5,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
 import { grey } from "@mui/material/colors";
 import "./styles.css";
-import CartsQuantity from "../CartQuantity";
+import CartsQuantity from "../CartsQuantity";
 
 type Props = {};
 
