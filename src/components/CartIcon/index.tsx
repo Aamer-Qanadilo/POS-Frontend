@@ -1,10 +1,11 @@
 import React from "react";
-import { Box, IconButton, alpha, styled } from "@mui/material";
+import { alpha, styled } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
-import "./styles.css";
 import { grey } from "@mui/material/colors";
+import "./styles.css";
+import CartsQuantity from "../CartQuantity";
 
 type Props = {};
 
@@ -39,9 +40,7 @@ const CartIcon = (props: Props) => {
   return (
     <StyledRoot onClick={openCart}>
       <ShoppingCartIcon />
-      <Box component="div" className="cart-icon__length">
-        {cartsQuantity}
-      </Box>
+      <CartsQuantity cartsQuantity={cartsQuantity} />
     </StyledRoot>
   );
 };
