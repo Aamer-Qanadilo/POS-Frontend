@@ -5,27 +5,23 @@ import {
   Button,
   Divider,
   Drawer,
-  FormControl,
   Grid,
   IconButton,
-  InputLabel,
   ListItemButton,
-  MenuItem,
-  Select,
   TextField,
   Typography,
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
-import AddIcon from "@mui/icons-material/Add";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
-import { formatCurrency } from "../../utils/formatCurrency";
 import ShoppingCartOptionsPopover from "../ShoppingCartOptionsPopover";
 import CartProductCard from "../CartProductCard";
-import CartsQuantity from "../CartQuantity";
+import CartsQuantity from "../CartsQuantity";
 import EmptyCashier from "../EmptyCashier";
+import CashierSummary from "../CashierSummary";
+import CashierInputs from "../CashierInputs";
 
 type Props = {
   isOpen: boolean;
@@ -41,8 +37,8 @@ const ShoppingCart = ({ isOpen }: Props) => {
     openedCart,
     cartsQuantity,
     isCartEmpty,
-    cartTotal,
-    cartSubTotal,
+    cartItemsQuantity,
+    handleCheckout,
   } = React.useContext(ShoppingCartContext);
 
   const handleOpenMenu = (
@@ -61,7 +57,7 @@ const ShoppingCart = ({ isOpen }: Props) => {
     }
 
     return (
-      <>
+      <Box sx={{ width: "100%" }}>
         <Grid
           container
           rowSpacing={2}
@@ -73,54 +69,21 @@ const ShoppingCart = ({ isOpen }: Props) => {
           ))}
         </Grid>
 
-        <Box>
-          <TextField
-            id="standard-basic"
-            label="Tax"
-            variant="standard"
-            type="number"
-          />
-        </Box>
+        <CashierInputs />
 
-        <Box>
-          <TextField
-            id="standard-basic"
-            label="Discount %"
-            variant="standard"
-            type="number"
-          />
-        </Box>
-
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "30px 15px 10px",
-          }}
-        >
-          <Typography variant="h6" component="div">
-            Subtotal{" "}
-            <span style={{ textDecoration: "line-through", opacity: "0.5" }}>
-              {" "}
-              <br />
-              {formatCurrency(cartSubTotal)}
-            </span>
-          </Typography>
-          <Typography variant="h6" component="div" color="Highlight">
-            Total <br />
-            <span style={{ fontWeight: "bold" }}>
-              {formatCurrency(cartTotal)}
-            </span>
-          </Typography>
-        </Box>
+        <CashierSummary />
 
         <ListItemButton sx={{ textAlign: "center" }}>
-          <Button variant="contained" fullWidth color="info">
+          <Button
+            variant="contained"
+            fullWidth
+            color="info"
+            onClick={handleCheckout}
+          >
             Checkout
           </Button>
         </ListItemButton>
-      </>
+      </Box>
     );
   };
 
@@ -178,7 +141,10 @@ const ShoppingCart = ({ isOpen }: Props) => {
 
         <Box
           textAlign="center"
-          display={isCartEmpty ? "flex" : "block"}
+          display={"flex"}
+          flexGrow={1}
+          justifyContent={"center"}
+          alignItems={"center"}
           sx={{ padding: "10px 40px", flexGrow: 1 }}
         >
           {renderCashierBody()}
