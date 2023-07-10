@@ -25,7 +25,9 @@ const ProductCardContainer = ({ products }: Props) => {
         container
         spacing={2}
         justifyContent="start"
-        sx={{ margin: "5px 0 30px" }}
+        sx={{ margin: "5px 0 30px", gridAutoRows: "1fr" }}
+        gridAutoRows={"1fr"}
+        alignItems={"stretch"}
       >
         {products.map((product, index) => {
           return <ProductCard product={product} index={index} />;

@@ -1,0 +1,29 @@
+.number-field-form {
+  position: relative;
+  width: 100%;
+  border: 1px solid rgb(179, 176, 176);
+  padding: 5px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.number-field-form__decrease,
+.number-field-form__increase {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.number-field-form__decrease {
+  left: 2px;
+}
+
+.number-field-form__decrease-icon,
+.number-field-form__increase-icon {
+  font-size: 1.8rem;
+}
+
+.number-field-form__increase {
+  right: 2px;
+}

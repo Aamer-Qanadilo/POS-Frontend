@@ -38,11 +38,11 @@ const ShoppingCart = ({ isOpen }: Props) => {
 
   const {
     closeCart,
-    carts,
-    getItemQuantity,
     openedCart,
     cartsQuantity,
     isCartEmpty,
+    cartTotal,
+    cartSubTotal,
   } = React.useContext(ShoppingCartContext);
 
   const handleOpenMenu = (
@@ -73,8 +73,6 @@ const ShoppingCart = ({ isOpen }: Props) => {
           ))}
         </Grid>
 
-        <Divider flexItem variant="middle" sx={{ margin: "25px 0" }} />
-
         <Box>
           <TextField
             id="standard-basic"
@@ -103,19 +101,17 @@ const ShoppingCart = ({ isOpen }: Props) => {
         >
           <Typography variant="h6" component="div">
             Subtotal{" "}
-            {formatCurrency(
-              openedCart?.products.reduce((total, product) => {
-                return total + product.quantity * product.price;
-              }, 0) || 0,
-            )}
+            <span style={{ textDecoration: "line-through", opacity: "0.5" }}>
+              {" "}
+              <br />
+              {formatCurrency(cartSubTotal)}
+            </span>
           </Typography>
           <Typography variant="h6" component="div" color="Highlight">
-            Total{" "}
-            {formatCurrency(
-              openedCart?.products.reduce((total, product) => {
-                return total + product.quantity * product.price;
-              }, 0) || 0,
-            )}
+            Total <br />
+            <span style={{ fontWeight: "bold" }}>
+              {formatCurrency(cartTotal)}
+            </span>
           </Typography>
         </Box>
 
@@ -171,6 +167,14 @@ const ShoppingCart = ({ isOpen }: Props) => {
             <CloseIcon />
           </IconButton>
         </Box>
+
+        <Divider
+          variant="fullWidth"
+          sx={{
+            margin: ` 0`,
+          }}
+          flexItem
+        />
 
         <Box
           textAlign="center"
