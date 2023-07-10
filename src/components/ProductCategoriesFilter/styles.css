@@ -16,6 +16,11 @@
   transition: all 0s ease-in;
 }
 
+.categories-filter:hover + .categories-filter__mouse-icon {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
 .categories-filter.active {
   opacity: 1;
   height: auto;

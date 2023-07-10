@@ -6,6 +6,7 @@ import {
   MenuItem,
   Popover,
   Select,
+  SelectChangeEvent,
   Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -24,6 +25,11 @@ const ShoppingCartOptionsPopover = ({ open, closeOptionsPopover }: Props) => {
 
   const handleCreateNewCart = () => {
     createCart();
+    closeOptionsPopover();
+  };
+
+  const handleChangeCart = (e: SelectChangeEvent<string>) => {
+    handleOpenedCart(e.target.value);
     closeOptionsPopover();
   };
 
@@ -58,7 +64,7 @@ const ShoppingCartOptionsPopover = ({ open, closeOptionsPopover }: Props) => {
           id="demo-simple-select"
           value={openedCart?.id}
           label="Available Carts "
-          onChange={(e) => handleOpenedCart(e.target.value)}
+          onChange={handleChangeCart}
         >
           {carts.map((cart, index) => (
             <MenuItem value={cart.id}>Cart #{index}</MenuItem>

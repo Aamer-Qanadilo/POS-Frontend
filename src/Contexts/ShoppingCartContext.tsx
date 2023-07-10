@@ -32,10 +32,14 @@ type ShoppingCartContext = {
   createCart: () => void;
   handleOpenedCart: (cartId: CartType["id"]) => void;
   increaseProductQuantity: (product: products, quantity?: number) => void;
+  decreaseProductQuantity: (product: products, quantity?: number) => void;
+  removeFromCart: (product: products) => void;
   isCartEmpty: boolean;
   cartsQuantity: number;
   carts: CartType[];
   openedCart: CartType | null;
+  cartSubTotal: number;
+  cartTotal: number;
 };
 
 export const ShoppingCartContext = createContext({} as ShoppingCartContext);
@@ -128,7 +132,68 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     updateCarts(cart);
   };
 
+  const decreaseProductQuantity = (product: products, quantity?: number) => {
+    if (!openedCart) {
+      toast.error("Please choose a cart.");
+      return;
+    }
+
+    const cart = { ...openedCart };
+
+    const productItemIndex = cart.products.findIndex(
+      (item) => item._id === product._id,
+    );
+
+    if (productItemIndex === -1) {
+      toast.error("There is no such product");
+      return;
+    } else {
+      const productQuantity = cart.products[productItemIndex].quantity;
+
+      cart.products[productItemIndex].quantity =
+        quantity || productQuantity - 1;
+
+      if (cart.products[productItemIndex].quantity <= 0) {
+        removeFromCart(product);
+        return;
+      }
+    }
+
+    updateCarts(cart);
+  };
+
+  const removeFromCart = (product: products) => {
+    if (!openedCart) {
+      toast.error("Please choose a cart.");
+      return;
+    }
+
+    const cart = { ...openedCart };
+
+    const productItemIndex = cart.products.findIndex(
+      (item) => item._id === product._id,
+    );
+
+    if (productItemIndex === -1) {
+      toast.error("There is no such product");
+      return;
+    } else {
+      cart.products.splice(productItemIndex, 1);
+      updateCarts(cart);
+    }
+  };
+
   const isCartEmpty = !openedCart || !openedCart.products.length;
+
+  const cartSubTotal =
+    openedCart?.products.reduce((total, product) => {
+      return total + product.quantity * product.price;
+    }, 0) || 0;
+
+  const cartTotal =
+    cartSubTotal -
+    cartSubTotal * (openedCart?.discount || 0) +
+    (openedCart?.tax || 0);
 
   return (
     <ShoppingCartContext.Provider
@@ -136,8 +201,8 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         getItemQuantity,
         cartItemsQuantity,
         increaseProductQuantity,
-        // decreaseCartQuantity,
-        // removeFromCart,
+        decreaseProductQuantity,
+        removeFromCart,
         openCart,
         closeCart,
         createCart,
@@ -146,6 +211,8 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         carts,
         cartsQuantity,
         openedCart,
+        cartSubTotal,
+        cartTotal,
       }}
     >
       {children}

@@ -15,6 +15,7 @@ import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
 import { ProductContext } from "../../Contexts/ProductContext";
 import { formatCurrency } from "../../utils/formatCurrency";
 import productType from "../../types/products.types";
+import QuantityActions from "../QuantityActions";
 
 type Props = {
   index: number;
@@ -23,8 +24,16 @@ type Props = {
 
 const ProductCard = ({ index, product }: Props) => {
   const { productImageBaseUrl } = React.useContext(ProductContext);
-  const { getItemQuantity, increaseProductQuantity } =
+  const { getItemQuantity, increaseProductQuantity, removeFromCart } =
     React.useContext(ShoppingCartContext);
+
+  const handleAddProduct = () => {
+    increaseProductQuantity(product);
+  };
+
+  const handleRemoveProduct = () => {
+    removeFromCart(product);
+  };
 
   const {
     image,
@@ -32,6 +41,10 @@ const ProductCard = ({ index, product }: Props) => {
     price,
     unitOfMeasure: { name: unitOfMeasureName },
   } = product;
+
+  const productQuantity = getItemQuantity(product._id);
+
+  const cardPadding = productQuantity ? "30px 20px 0" : "30px 20px";
 
   return (
     <Grid item lg={3} md={4} sm={6}>
@@ -43,7 +56,8 @@ const ProductCard = ({ index, product }: Props) => {
           "&:hover": {
             boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
           },
-          padding: "30px 20px",
+          padding: productQuantity ? "30px 20px 0" : "30px 20px",
+          height: "max-content",
         }}
       >
         <Box
@@ -111,14 +125,10 @@ const ProductCard = ({ index, product }: Props) => {
           flexItem
         />
         <CardActions>
-          {getItemQuantity(product._id) ? (
-            <p>Add more</p>
+          {productQuantity ? (
+            <QuantityActions product={product} />
           ) : (
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={() => increaseProductQuantity(product)}
-            >
+            <Button fullWidth variant="contained" onClick={handleAddProduct}>
               Add to Cart
             </Button>
           )}
