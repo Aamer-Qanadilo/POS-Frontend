@@ -153,16 +153,44 @@ It also supports multi-cart system so that the cashier would easily handle more 
 <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/654609b2-f6dc-4a03-9d89-7678ec122d75" alt="cashier page image"  width="80%" />
 </p>
 
+<br />
+Here's the case if we didn't choose any cart yet
+<br />
 <p align="center">
 <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/b9c52362-6031-41ce-8578-96fa86b49009" alt="cashier page image - no chosen cart case"  width="80%" />
 </p>
 
+<br />
+Here's the case if we didn't add any product to the cart yet
+<br />
 <p align="center">
 <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/eb57aafa-2f40-4938-aede-68ba0a0a018d" alt="cashier page image - no items added"  width="80%" />
 </p>
 
+<br />
+Here's the case if we added some products to the cart 
+<br />
+<p align="center">
+<img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/1c75b351-be82-47d8-8c94-1a92cf31f224" alt="cashier page image - no items added"  width="80%" />
+</p>
+
 <br><br>
 Thank you for using my React project! If you have any questions or issues, please contact me.
+
+<p align="center">
+    <a target="_blank" href="https://www.upwork.com/freelancers/~01bcc6b1c8eef0f266">
+        <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/d8d9aa92-e560-4090-887a-855afeee344b" alt="lodash" height="40" width="40" />   
+    </a>
+    <a target="_blank"  href="https://www.instagram.com/aamer_qanadilo/">
+          <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/c204ca3b-8196-48c2-8763-b8d0737870ca" alt="lodash" height="40" width="40" />   
+    </a>
+    <a target="_blank" href="https://www.linkedin.com/in/amer-qanadilo/">
+        <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/95ecdf67-cd73-4fb5-8f51-ec3853a0c515" alt="lodash" height="40" width="40" />     
+    </a>
+    <a target="_blank" href="https://www.youtube.com/@amerqanadilo5648">
+        <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/ee5806fb-1546-4068-aeba-c1d3cc8f4e12" alt="lodash" height="40" width="40" />   
+    </a>
+</p>
 
 
  <h2>Notes</h2>
