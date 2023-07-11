@@ -13,6 +13,13 @@
 - [Installation](#installation)
 - [Usage](#usage)
 
+## Prerequisites
+
+Before running this project, make sure you have the following installed:
+
+- Node.js
+- npm
+
 ## Overview
 
 This project is a web-based point-of-sale system (POS) designed for use in supermarkets. The app provides a user-friendly interface that allows supermarkets to add products to a cart and calculate the total amount for the order.
