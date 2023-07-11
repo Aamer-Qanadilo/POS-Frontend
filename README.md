@@ -182,22 +182,22 @@ Here's the case if we added some products to the cart
 </p>
 
 <br><br>
-Thank you for using my React project! If you have any questions or issues, please contact me.
+Thank you for using my React project! I hope it was useful and easy to use! <br />
+If you have any questions or issues, please contact me. <br />
 
 <p align="center">
-    <a target="_blank" href="https://www.upwork.com/freelancers/~01bcc6b1c8eef0f266">
-        <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/d8d9aa92-e560-4090-887a-855afeee344b" alt="lodash" height="40" width="40" />   
-    </a>
-    <a target="_blank"  href="https://www.instagram.com/aamer_qanadilo/">
-          <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/c204ca3b-8196-48c2-8763-b8d0737870ca" alt="lodash" height="40" width="40" />   
-    </a>
-    <a target="_blank" href="https://www.linkedin.com/in/amer-qanadilo/">
-        <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/95ecdf67-cd73-4fb5-8f51-ec3853a0c515" alt="lodash" height="40" width="40" />     
-    </a>
-    <a target="_blank" href="https://www.youtube.com/@amerqanadilo5648">
-        <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/ee5806fb-1546-4068-aeba-c1d3cc8f4e12" alt="lodash" height="40" width="40" />   
-    </a>
+    <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/d8d9aa92-e560-4090-887a-855afeee344b" alt="lodash" height="40" width="40" />   
+    <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/c204ca3b-8196-48c2-8763-b8d0737870ca" alt="lodash" height="40" width="40" />   
+    <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/95ecdf67-cd73-4fb5-8f51-ec3853a0c515" alt="lodash" height="40" width="40" />     
+    <img src="https://github.com/Aamer-Qanadilo/POS-Frontend/assets/104656644/ee5806fb-1546-4068-aeba-c1d3cc8f4e12" alt="lodash" height="40" width="40" />   
 </p>
+
+# Socials
+
+- [UpWork - Aamer Qanadilo](https://www.upwork.com/freelancers/~01bcc6b1c8eef0f266)
+- [Instagram - aamer_qanadilo](https://www.instagram.com/aamer_qanadilo/)
+- [LinkedIn - aamer-qanadilo](https://www.linkedin.com/in/amer-qanadilo/)
+- [Youtube - Aamer Qanadilo](https://www.youtube.com/@amerqanadilo5648)
 
 
  <h2>Notes</h2>
