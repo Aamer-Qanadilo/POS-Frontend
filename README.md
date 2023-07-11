@@ -68,7 +68,7 @@ To run this project on your local machine, follow these steps:
   <li>Install the dependencies:
     <pre><code>npm install</code></pre>
   </li>
-  <li>Start the development server:
+  <li>Start the development server: (Before you do this step please make sure you've started the backend server) 
     <pre><code>npm start</code></pre>
   </li>
 </ol>
