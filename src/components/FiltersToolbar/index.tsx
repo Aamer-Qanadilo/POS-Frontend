@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Box,
   Button,
@@ -7,11 +9,9 @@ import {
   alpha,
   styled,
 } from "@mui/material";
-
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
-import React from "react";
 import categories from "../../types/categories.types";
 import filtersTypes from "../../types/filters.types";
 

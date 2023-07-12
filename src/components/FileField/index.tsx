@@ -1,10 +1,9 @@
 import React from "react";
 
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 
 import "./styles.css";
-import { error } from "console";
 
 type Props = {
   initialPreviewImage: string;

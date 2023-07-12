@@ -1,6 +1,13 @@
 import React from "react";
 
 import { Container } from "@mui/system";
+import { SelectChangeEvent } from "@mui/material";
+
+import FilterToolbar from "../../components/FiltersToolbar";
+import ProductCategoriesFilter from "../../components/ProductCategoriesFilter";
+import PaginationFilter from "../../components/PaginationFilter";
+import ProductCardContainer from "../../components/ProductCardContainer";
+import CartIcon from "../../components/CartIcon";
 
 import { LoaderContext } from "../../Contexts/LoaderContext";
 import { ProductContext } from "../../Contexts/ProductContext";
@@ -8,16 +15,11 @@ import { UserContext } from "../../Contexts/UserContext";
 import { CategoryContext } from "../../Contexts/CategoryContext";
 import { UnitContext } from "../../Contexts/UnitContext";
 
-import useFilters from "../../hooks/useFilters";
 import filtersTypes from "../../types/filters.types";
-import { SelectChangeEvent } from "@mui/material";
-import filterData from "../../utils/filterData";
-import FilterToolbar from "../../components/FiltersToolbar";
-import ProductCategoriesFilter from "../../components/ProductCategoriesFilter";
-import PaginationFilter from "../../components/PaginationFilter";
-import ProductCardContainer from "../../components/ProductCardContainer";
 import products from "../../types/products.types";
-import CartIcon from "../../components/CartIcon";
+
+import useFilters from "../../hooks/useFilters";
+import filterData from "../../utils/filterData";
 
 type Props = {};
 

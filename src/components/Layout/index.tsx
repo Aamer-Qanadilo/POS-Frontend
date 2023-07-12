@@ -1,6 +1,8 @@
 import React from "react";
-import Navbar from "../Navbar";
 import { Outlet } from "react-router-dom";
+
+import Navbar from "../Navbar";
+
 import { UserContext } from "../../Contexts/UserContext";
 import { ProductProvider } from "../../Contexts/ProductContext";
 import { CategoryProvider } from "../../Contexts/CategoryContext";

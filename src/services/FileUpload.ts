@@ -1,6 +1,6 @@
 import http from "../http-common";
-import productTypes, { productUploadType } from "../types/products.types";
-import categoryTypes, { categoryUploadType } from "../types/categories.types";
+import { productUploadType } from "../types/products.types";
+import { categoryUploadType } from "../types/categories.types";
 
 interface headers {
   authorization: string | null;

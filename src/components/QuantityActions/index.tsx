@@ -1,12 +1,10 @@
 import React from "react";
 
-import { Box, CardActions, Typography } from "@mui/material";
-
-import { isNumber } from "lodash";
-
-import products from "../../types/products.types";
+import { Box, Typography } from "@mui/material";
 
 import NumberTextField from "../NumberTextField";
+
+import products from "../../types/products.types";
 
 import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
 

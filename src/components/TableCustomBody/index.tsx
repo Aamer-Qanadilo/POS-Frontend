@@ -1,41 +1,44 @@
 import React from "react";
+import { useNavigate } from "react-router";
+
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   Avatar,
-  Box,
-  Button,
   IconButton,
   TableBody,
   TableCell,
   TableRow,
 } from "@mui/material";
 import { tableCellClasses } from "@mui/material/TableCell";
-
 import { styled } from "@mui/material/styles";
+
 import { toast } from "react-toastify";
 import moment from "moment";
+
+import DialogPopup from "../DialogPopup";
+import TableCustomBodyPopover from "../TableCustomBodyPopover";
+import NotFoundData from "../NotFoundData";
 
 import products from "../../types/products.types.js";
 import categories from "../../types/categories.types.js";
 import units from "../../types/units.types.js";
-import { useNavigate } from "react-router";
-import { LoaderContext } from "../../Contexts/LoaderContext";
-import DialogPopup from "../DialogPopup/index";
-import TableCustomBodyPopover from "../TableCustomBodyPopover";
 
-import NotFoundData from "../NotFoundData/index";
+import { LoaderContext } from "../../Contexts/LoaderContext";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
+  minHeight: "12vh",
+  maxWidth: "20ch",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  // "&:nth-of-type(odd)": {
-  // },
   // hide last border
-  "&:last-child td, &:last-child th": {
+  "&:last-child td": {
     border: 0,
   },
 }));
@@ -50,10 +53,6 @@ type Props = {
   imagesBaseUrl?: string;
   onDelete?: (_id: string) => void;
 };
-
-interface Object {
-  hasOwnProperty<T>(this: T, v: any): v is keyof T;
-}
 
 const TableCustomBody = ({
   items,
@@ -124,7 +123,7 @@ const TableCustomBody = ({
       const itemData = item[key as keyof typeof item];
 
       let date = null;
-      if (key === "updatedAt") {
+      if (key === "updatedAt" || key === "createdAt") {
         date = moment(itemData).format("l LTS");
       }
 
@@ -135,6 +134,7 @@ const TableCustomBody = ({
             sx={{
               display: "flex",
               justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Avatar
@@ -146,42 +146,16 @@ const TableCustomBody = ({
                 height: 90,
               }}
             />
-            {/* <img
-              src={imagesBaseUrl + itemData}
-              alt={item.name}
-              loading="lazy"
-              style={{ width: "100%", objectFit: "cover" }}
-            /> */}
-          </StyledTableCell>
-        );
-      } else if (typeof itemData !== "object") {
-        return (
-          <StyledTableCell
-            align="center"
-            sx={{
-              minHeight: "20vh",
-              maxWidth: "20ch",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-            }}
-          >
-            {date ? date : itemData}
           </StyledTableCell>
         );
       } else if (typeof itemData === "object") {
         return (
-          <StyledTableCell
-            align="center"
-            sx={{
-              minHeight: "20vh",
-              maxWidth: "20ch",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-            }}
-          >
-            {itemData["name"]}
+          <StyledTableCell align="center">{itemData["name"]}</StyledTableCell>
+        );
+      } else {
+        return (
+          <StyledTableCell align="center">
+            {date ? date : itemData}
           </StyledTableCell>
         );
       }

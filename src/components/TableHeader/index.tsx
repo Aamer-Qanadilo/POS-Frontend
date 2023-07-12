@@ -1,12 +1,10 @@
 import React from "react";
 
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import { tableCellClasses } from "@mui/material/TableCell";
+import { TableHead, TableCell, TableRow, Box } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-import { Box, TableSortLabel } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import "./styles.css";
@@ -25,25 +23,10 @@ type Props = {
   sortColumn: sortType;
 };
 
-const visuallyHidden = {
-  border: 0,
-  margin: -1,
-  padding: 0,
-  width: "1px",
-  height: "1px",
-  overflow: "hidden",
-  position: "absolute",
-  whiteSpace: "nowrap",
-  clip: "rect(0 0 0 0)",
-};
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.action.hover,
     padding: "20px 0",
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
   },
 }));
 

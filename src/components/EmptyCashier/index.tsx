@@ -1,7 +1,7 @@
 import React from "react";
 
-import "./styles.css";
 import { Avatar, Box, Button, Container, Typography } from "@mui/material";
+
 import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
 
 type Props = {

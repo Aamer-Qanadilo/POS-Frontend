@@ -1,17 +1,17 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import { useNavigate, useParams } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider/Divider";
+
+import { Button, TextField, Box, Divider } from "@mui/material";
+
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 
 import FormContainer from "../../components/FormContainer";
 import FileField from "../../components/FileField";
+
 import { CategoryContext } from "../../Contexts/CategoryContext";
-import "./styles.css";
 import { LoaderContext } from "../../Contexts/LoaderContext";
+
 import { categoryUploadType } from "../../types/categories.types";
 
 interface errors {
