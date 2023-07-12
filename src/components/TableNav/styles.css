@@ -1,0 +1,21 @@
+.table-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  background-color: white;
+  padding: 25px 25px 15px;
+  box-sizing: border-box;
+}
+
+.table__add-item-button {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.table__add-item-button * {
+  text-decoration: none;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Avatar,
   Box,
@@ -15,10 +16,10 @@ import QuantityActions from "../QuantityActions";
 
 import productType from "../../types/products.types";
 
-import { formatCurrency } from "../../utils/formatCurrency";
-
 import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
 import { ProductContext } from "../../Contexts/ProductContext";
+
+import { formatCurrency } from "../../utils/formatCurrency";
 
 import "./styles.css";
 

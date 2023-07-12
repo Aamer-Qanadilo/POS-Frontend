@@ -1,7 +1,9 @@
+import React from "react";
+
 import { MenuItem, Popover } from "@mui/material";
+
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import React from "react";
 
 type Props = {
   open: (EventTarget & HTMLButtonElement) | null;
@@ -25,21 +27,22 @@ const TableCustomBodyPopover = ({
       onClose={closeActionsPopover}
       anchorOrigin={{ vertical: "top", horizontal: "left" }}
       transformOrigin={{ vertical: "top", horizontal: "right" }}
-      PaperProps={{
-        sx: {
-          p: 1,
-          width: 140,
-          "& .MuiMenuItem-root": {
-            px: 1,
-            typography: "body2",
-            borderRadius: 0.75,
+      slotProps={{
+        paper: {
+          sx: {
+            p: 1,
+            width: 140,
+            "& .MuiMenuItem-root": {
+              px: 1,
+              typography: "body2",
+              borderRadius: 0.75,
+            },
           },
         },
       }}
     >
       <MenuItem onClick={() => onUpdate()}>
-        <EditIcon color="action" />
-        Edit
+        <EditIcon color="action" /> Edit
       </MenuItem>
 
       <MenuItem
@@ -50,8 +53,7 @@ const TableCustomBodyPopover = ({
           handleProductIndex();
         }}
       >
-        <DeleteIcon color="error" />
-        Delete
+        <DeleteIcon color="error" /> Delete
       </MenuItem>
     </Popover>
   );

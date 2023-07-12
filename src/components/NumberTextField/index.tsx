@@ -1,17 +1,12 @@
 import React from "react";
 
-import {
-  Box,
-  FormControl,
-  IconButton,
-  InputBase,
-  TextField,
-} from "@mui/material";
+import { FormControl, IconButton, InputBase } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
-import "./styles.css";
 import { isNumber } from "lodash";
+
+import "./styles.css";
 
 type Props = {
   onIncrease: () => void;

@@ -1,14 +1,14 @@
+import React from "react";
+
 import {
-  Box,
   FormControl,
   FormHelperText,
   Input,
   InputAdornment,
-  InputBase,
-  TextField,
 } from "@mui/material";
-import React from "react";
+
 import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+
 import { isNumber } from "lodash";
 
 type Props = {};
@@ -45,6 +45,7 @@ const CashierInputs = (props: Props) => {
     <React.Fragment>
       <FormControl variant="standard" sx={{ m: 1, mt: 3, width: "25ch" }}>
         <Input
+          type="number"
           id="tax-input"
           endAdornment={<InputAdornment position="end">$</InputAdornment>}
           aria-describedby="tax-input-helper-text"
@@ -62,6 +63,7 @@ const CashierInputs = (props: Props) => {
 
       <FormControl variant="standard" sx={{ m: 1, mt: 3, width: "25ch" }}>
         <Input
+          type="number"
           id="discount-input"
           endAdornment={<InputAdornment position="end">%</InputAdornment>}
           aria-describedby="discount-input-helper-text"

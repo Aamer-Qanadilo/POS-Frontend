@@ -1,14 +1,13 @@
 import React from "react";
-import { Box, Button, Container, Divider, Typography } from "@mui/material";
-import ControlPointIcon from "@mui/icons-material/ControlPoint";
+
+import { Divider } from "@mui/material";
 
 import CustomTable from "../../components/Table";
+import TableNav from "../../components/TableNav";
+
 import { UserContext } from "../../Contexts/UserContext";
-import httpCommon from "../../http-common";
-import { toast } from "react-toastify";
 import { LoaderContext } from "../../Contexts/LoaderContext";
 import { UnitContext } from "../../Contexts/UnitContext";
-import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -46,32 +45,7 @@ const Units = (props: Props) => {
 
   return (
     <>
-      <Box
-        padding="25px 25px 15px"
-        flexDirection="row"
-        sx={{
-          boxSizing: "border-box",
-          display: "flex",
-          width: "100%",
-          alignItems: "center",
-          gap: "20px",
-          justifyContent: "space-between",
-          backgroundColor: "white",
-        }}
-      >
-        <Typography variant="h5">Units</Typography>
-
-        <Link to={"new"} style={{ textDecoration: "none" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            className="table__add-item-button"
-          >
-            <ControlPointIcon />{" "}
-            <Typography variant="subtitle2">Add new Unit</Typography>
-          </Button>
-        </Link>
-      </Box>
+      <TableNav title="Units" buttonText="Add New Unit" />
 
       <Divider />
 

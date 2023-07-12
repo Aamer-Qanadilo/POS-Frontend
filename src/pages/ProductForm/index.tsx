@@ -1,7 +1,8 @@
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { useNavigate, useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider/Divider";
 import {
@@ -11,17 +12,19 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { toast } from "react-toastify";
-import { useFormik } from "formik";
 
 import FormContainer from "../../components/FormContainer";
 import FileField from "../../components/FileField";
+
+import { toast } from "react-toastify";
+import { useFormik } from "formik";
+
+import { productUploadType } from "../../types/products.types";
+
 import { CategoryContext } from "../../Contexts/CategoryContext";
 import { LoaderContext } from "../../Contexts/LoaderContext";
 import { UnitContext } from "../../Contexts/UnitContext";
 import { ProductContext } from "../../Contexts/ProductContext";
-
-import { productUploadType } from "../../types/products.types";
 
 import "./styles.css";
 
@@ -320,6 +323,7 @@ const ProductForm = (props: Props) => {
               </FormHelperText>
             </FormControl>
           </Box>
+
           <Divider
             orientation="vertical"
             variant="middle"
@@ -328,6 +332,7 @@ const ProductForm = (props: Props) => {
           >
             {" "}
           </Divider>
+
           <Box
             component="div"
             sx={{ width: "75%", display: "flex", alignItems: "center" }}

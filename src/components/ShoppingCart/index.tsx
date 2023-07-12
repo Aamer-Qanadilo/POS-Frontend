@@ -8,20 +8,20 @@ import {
   Grid,
   IconButton,
   ListItemButton,
-  TextField,
   Typography,
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
 import ShoppingCartOptionsPopover from "../ShoppingCartOptionsPopover";
 import CartProductCard from "../CartProductCard";
 import CartsQuantity from "../CartsQuantity";
 import EmptyCashier from "../EmptyCashier";
 import CashierSummary from "../CashierSummary";
 import CashierInputs from "../CashierInputs";
+
+import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
 
 type Props = {
   isOpen: boolean;

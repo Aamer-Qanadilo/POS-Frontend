@@ -1,22 +1,23 @@
+import React from "react";
+
 import {
   Avatar,
   Box,
   Card,
-  CardActions,
   CardContent,
   Divider,
   Grid,
-  IconButton,
   Typography,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 
-import React from "react";
-import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
-import productType from "../../types/products.types";
-import { ProductContext } from "../../Contexts/ProductContext";
-import { formatCurrency } from "../../utils/formatCurrency";
 import QuantityActions from "../QuantityActions";
+
+import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+import { ProductContext } from "../../Contexts/ProductContext";
+
+import productType from "../../types/products.types";
+
+import { formatCurrency } from "../../utils/formatCurrency";
 
 type Props = {
   index: number;

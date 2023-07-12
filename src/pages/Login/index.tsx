@@ -1,19 +1,18 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import { Link, useNavigate } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider/Divider";
+
+import { Button, TextField, Box, Divider } from "@mui/material";
 
 import FormContainer from "../../components/FormContainer";
-import "./styles.css";
+
 import { useFormik } from "formik";
-import axios from "axios";
 import { toast } from "react-toastify";
-import { UserContext } from "../../Contexts/UserContext";
 import httpCommon from "../../http-common";
+
+import { UserContext } from "../../Contexts/UserContext";
 import { LoaderContext } from "../../Contexts/LoaderContext";
 
+import "./styles.css";
 interface errors {
   email?: string;
   password?: string;

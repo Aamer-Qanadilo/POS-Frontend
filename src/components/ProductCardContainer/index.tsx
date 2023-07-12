@@ -3,8 +3,9 @@ import React from "react";
 import { Container, Grid } from "@mui/material";
 
 import ProductCard from "../ProductCard";
-import productType from "../../types/products.types";
 import NotFoundData from "../NotFoundData";
+
+import productType from "../../types/products.types";
 
 type Props = {
   products: productType[];

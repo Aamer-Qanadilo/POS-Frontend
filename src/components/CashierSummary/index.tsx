@@ -1,7 +1,10 @@
-import { Box, Typography } from "@mui/material";
 import React from "react";
-import { formatCurrency } from "../../utils/formatCurrency";
+
+import { Box, Typography } from "@mui/material";
+
 import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+
+import { formatCurrency } from "../../utils/formatCurrency";
 
 type Props = {};
 

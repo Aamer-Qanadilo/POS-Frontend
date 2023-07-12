@@ -1,8 +1,8 @@
 import products from "../types/products.types";
 import categories from "../types/categories.types";
 import units from "../types/units.types";
-import paginate from "../utils/pagination";
 
+import paginate from "../utils/pagination";
 import { useFilterState } from "../hooks/useFilters";
 import _ from "lodash";
 

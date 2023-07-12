@@ -1,8 +1,12 @@
 import React from "react";
+
 import { Avatar, Box, Button, Container, Typography } from "@mui/material";
+
 import categories from "../../types/categories.types.js";
-import "./styles.css";
+
 import { CategoryContext } from "../../Contexts/CategoryContext";
+
+import "./styles.css";
 
 type Props = {
   categoryFilters?: categories[] | null;
@@ -38,6 +42,7 @@ const ProductCategoriesFilter = ({
           >
             <Typography variant="button">All</Typography>
           </Button>
+
           {categoryFilters?.map((category) => {
             return (
               <Button

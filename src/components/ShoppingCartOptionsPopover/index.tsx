@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Button,
   Divider,
@@ -11,7 +13,6 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
-import React from "react";
 import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
 
 type Props = {

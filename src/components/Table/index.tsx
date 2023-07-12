@@ -1,25 +1,20 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
 
+import { Divider, Paper, TableContainer, Table } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
-import { Divider } from "@mui/material";
-import * as _ from "lodash";
 
 import TableHeader from "../TableHeader";
+import TableCustomBody from "../TableCustomBody";
+import PaginationFilter from "../PaginationFilter";
+import TableCategoriesFilter from "../ProductCategoriesFilter";
+import FilterToolbar from "../FiltersToolbar";
 
 import products from "../../types/products.types.js";
 import categories from "../../types/categories.types.js";
 import units from "../../types/units.types.js";
-
-import TableCustomBody from "../TableCustomBody";
-import TableCustomFooter from "../PaginationFilter";
-import TableCategoriesFilter from "../ProductCategoriesFilter";
-
 import filtersTypes from "../../types/filters.types";
-import FilterToolbar from "../FiltersToolbar";
-import "./styles.css";
+
+import _ from "lodash";
 import useFilters from "../../hooks/useFilters";
 import filterData from "../../utils/filterData";
 
@@ -39,7 +34,6 @@ const CustomTable = ({
   handleDelete,
 }: props) => {
   const [filters, filtersDispatch] = useFilters();
-
   const [showFilters, setShowFilters] = React.useState<boolean>(false);
 
   const handleToggleShowFilters = () => {
@@ -97,6 +91,7 @@ const CustomTable = ({
           onSort={handleSort}
           sortColumn={filters.sortColumn}
         />
+
         <TableCustomBody
           items={finalData}
           headers={dataHeader}
@@ -107,7 +102,7 @@ const CustomTable = ({
 
       <Divider sx={{ margin: "20px 0 10px" }} />
 
-      <TableCustomFooter
+      <PaginationFilter
         filtered={filtered}
         filters={filters}
         handlePageChange={handlePageChange}

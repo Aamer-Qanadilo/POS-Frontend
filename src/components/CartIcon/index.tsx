@@ -1,11 +1,11 @@
 import React from "react";
 import { alpha, styled } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { grey } from "@mui/material/colors";
+
+import CartsQuantity from "../CartsQuantity";
 
 import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
-import { grey } from "@mui/material/colors";
-import "./styles.css";
-import CartsQuantity from "../CartsQuantity";
 
 type Props = {};
 

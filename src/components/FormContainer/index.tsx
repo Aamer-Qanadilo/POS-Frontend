@@ -1,14 +1,10 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+
+import { Box, Typography, Container } from "@mui/material";
 import { Breakpoint, createTheme, ThemeProvider } from "@mui/material/styles";
-import Divider from "@mui/material/Divider/Divider";
 
 import Copyright from "../Copyright";
+
 import "./styles.css";
 
 type Props = {
@@ -25,25 +21,9 @@ const FormContainer = ({ children, FormHeader, maxWidth, ...props }: Props) => {
       <Container
         component="main"
         maxWidth={maxWidth || "xs"}
-        sx={{
-          backgroundColor: "white",
-          borderRadius: "15px",
-          boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
-        }}
+        className="form-container"
       >
-        {/* <CssBaseline /> */}
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "25px 5px",
-          }}
-        >
-          {/* <Avatar sx={{ m: 1, bgcolor: "#1976d2" }}>
-                <LockOutlinedIcon />
-              </Avatar> */}
+        <Box component="div" className="form-container__body">
           <Typography component="h1" variant="h5">
             {FormHeader}
           </Typography>

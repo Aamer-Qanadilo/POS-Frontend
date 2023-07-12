@@ -1,10 +1,7 @@
 import React from "react";
 import * as _ from "lodash";
 
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
+import { Typography, Box, ButtonGroup, Button } from "@mui/material";
 
 interface props {
   itemsCount: number;

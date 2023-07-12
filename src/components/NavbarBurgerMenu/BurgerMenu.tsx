@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link, NavLink } from "react-router-dom";
 
 import {
   Typography,
@@ -9,11 +10,10 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-
 import CloseIcon from "@mui/icons-material/Close";
-import { Link, NavLink } from "react-router-dom";
 
 import { UserContext } from "../../Contexts/UserContext";
+
 import "./styles.css";
 
 interface props {
