@@ -59,17 +59,6 @@ const ProductCategoriesFilter = ({
                     height: 50,
                   }}
                 />
-                {/* <Box component="div" className="categories-filter__button-body">
-                <img
-                  src={
-                    "http://localhost:3000/api/v1/uploads/categories/" +
-                    category.image
-                  }
-                  alt={category.name}
-                  loading="lazy"
-                  className="categories-filter__image"
-                />
-              </Box> */}
                 <Typography variant="button">{category.name}</Typography>
               </Button>
             );

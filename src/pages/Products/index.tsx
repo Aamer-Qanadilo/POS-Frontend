@@ -70,7 +70,7 @@ const Products = (props: Props) => {
         }}
       >
         <Typography variant="h5">Products</Typography>
-        <Link to={"new"}>
+        <Link to={"new"} style={{ textDecoration: "none" }}>
           <Button
             variant="contained"
             color="primary"

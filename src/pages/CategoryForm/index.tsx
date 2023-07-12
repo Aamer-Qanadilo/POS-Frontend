@@ -7,8 +7,8 @@ import Divider from "@mui/material/Divider/Divider";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 
-import FormContainer from "../FormContainer";
-import FileField from "../FileField";
+import FormContainer from "../../components/FormContainer";
+import FileField from "../../components/FileField";
 import { CategoryContext } from "../../Contexts/CategoryContext";
 import "./styles.css";
 import { LoaderContext } from "../../Contexts/LoaderContext";
@@ -134,7 +134,9 @@ const CategoryForm = (props: Props) => {
   };
 
   React.useEffect(() => {
-    document.title = "POS-Foothill | Category Form";
+    document.title = `POS-Foothill | ${
+      id === "new" ? "Create New" : "Update"
+    } Category`;
     FetchCategory();
   }, []);
 

@@ -22,11 +22,11 @@ interface props {
 }
 
 const BurgerMenu = ({ menuState, handleMenuToggle, ...props }: props) => {
-  const { handleUser } = React.useContext(UserContext);
+  const { handleUserToken } = React.useContext(UserContext);
 
   const handleLogoutClick = () => {
-    if (typeof handleUser !== "undefined") {
-      handleUser("");
+    if (typeof handleUserToken !== "undefined") {
+      handleUserToken("");
     }
   };
 

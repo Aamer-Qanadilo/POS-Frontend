@@ -9,30 +9,28 @@ import Products from "./pages/Products";
 import Categories from "./pages/Categories";
 import Units from "./pages/Units";
 import { UserContext } from "./Contexts/UserContext";
-import CategoryForm from "./components/CategoryForm";
-import UnitForm from "./components/UnitForm";
-import ProductForm from "./components/ProductForm";
+import CategoryForm from "./pages/CategoryForm";
+import UnitForm from "./pages/UnitForm";
+import ProductForm from "./pages/ProductForm";
 import ForgetPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
-import { LoaderContext } from "./Contexts/LoaderContext";
 
 type Props = {};
 
 const PageRouter = (props: Props) => {
   const { user } = React.useContext(UserContext);
-  const { loader } = React.useContext(LoaderContext);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          {!user && !loader ? (
+          {!user ? (
             <>
-              <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/" element={<Navigate to="/login" />} />
             </>
           ) : (
             <>

@@ -51,6 +51,7 @@ const Pagination = ({
           </Button>
         ))}
       </ButtonGroup>
+
       <Typography variant="caption" display="block">
         {(currentPage - 1) * pageSize + 1} -{" "}
         {currentPage * pageSize > itemsCount

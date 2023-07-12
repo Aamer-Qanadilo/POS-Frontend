@@ -7,7 +7,7 @@ import Divider from "@mui/material/Divider/Divider";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 
-import FormContainer from "../FormContainer";
+import FormContainer from "../../components/FormContainer";
 import { UnitContext } from "../../Contexts/UnitContext";
 
 import "./styles.css";
@@ -115,7 +115,9 @@ const UnitForm = (props: Props) => {
   };
 
   React.useEffect(() => {
-    document.title = "POS-Foothill | Unit Form";
+    document.title = `POS-Foothill | ${
+      id === "new" ? "Create New" : "Update"
+    } Unit`;
     FetchUnit();
   }, []);
 

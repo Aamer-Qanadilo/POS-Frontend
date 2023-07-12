@@ -55,7 +55,5 @@ export default function useFilters(
     sortColumn: initialState?.sortColumn || { path: "name", order: "asc" },
   });
 
-  console.log(state);
-
   return [state, dispatch];
 }

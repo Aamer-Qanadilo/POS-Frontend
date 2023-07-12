@@ -1,0 +1,17 @@
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+
+  padding: 5px 10px;
+  box-sizing: border-box;
+  gap: 20px;
+}
+
+.pagination__page-size {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import FormContainer from "../../components/FormContainer";
 import { toast } from "react-toastify";
 import httpCommon from "../../http-common";
+import { LoaderContext } from "../../Contexts/LoaderContext";
 
 type Props = {};
 interface errors {
@@ -54,8 +55,11 @@ const validate = (values: inputs) => {
 
 function Register({}: Props) {
   const navigate = useNavigate();
+  const { startLoader, stopLoader } = React.useContext(LoaderContext);
 
   const handleSubmit = async (inputs: inputs) => {
+    startLoader();
+
     try {
       const { data } = await httpCommon.post("/auth/signup", inputs);
 
@@ -69,6 +73,8 @@ function Register({}: Props) {
         toast.error(data.message);
       }
     } catch (error) {}
+
+    stopLoader();
   };
 
   const formik = useFormik({
