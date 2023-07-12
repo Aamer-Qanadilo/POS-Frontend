@@ -9,9 +9,11 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [Prerequisites](#prerequisites)
 - [Technologies](#technologies)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Socials](#socials)
 
 ## Prerequisites
 
