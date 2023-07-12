@@ -1,10 +1,16 @@
 import React from "react";
+
+import { Box, CardActions, Typography } from "@mui/material";
+
 import { isNumber } from "lodash";
 
 import products from "../../types/products.types";
-import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+
 import NumberTextField from "../NumberTextField";
-import { Box, CardActions, Typography } from "@mui/material";
+
+import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+
+import "./styles.css";
 
 type Props = {
   product: products;
@@ -58,11 +64,7 @@ const QuantityActions = ({ product }: Props) => {
       <Typography
         variant="caption"
         color="error"
-        sx={{
-          fontSize: "12px",
-          textDecoration: "underline",
-          cursor: "pointer",
-        }}
+        className="cashier-product-card__remove-btn"
         onClick={handleRemoveProduct}
       >
         Remove

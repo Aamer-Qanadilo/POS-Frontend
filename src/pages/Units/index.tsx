@@ -61,7 +61,7 @@ const Units = (props: Props) => {
       >
         <Typography variant="h5">Units</Typography>
 
-        <Link to={"new"}>
+        <Link to={"new"} style={{ textDecoration: "none" }}>
           <Button
             variant="contained"
             color="primary"

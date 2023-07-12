@@ -81,7 +81,7 @@ const CartProductCard = ({ index, product }: Props) => {
               variant={"subtitle1"}
               gutterBottom
               sx={{
-                maxWidth: "75%",
+                maxWidth: "50%",
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
@@ -95,7 +95,13 @@ const CartProductCard = ({ index, product }: Props) => {
               className={"MuiTypography--heading"}
               variant={"subtitle2"}
               color="Highlight"
-              sx={{ fontWeight: "bold" }}
+              sx={{
+                fontWeight: "bold",
+                maxWidth: "45%",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+              }}
             >
               {`${formatCurrency(
                 productQuantity * price,

@@ -14,8 +14,8 @@ import {
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 
-import FormContainer from "../FormContainer";
-import FileField from "../FileField";
+import FormContainer from "../../components/FormContainer";
+import FileField from "../../components/FileField";
 import { CategoryContext } from "../../Contexts/CategoryContext";
 import { LoaderContext } from "../../Contexts/LoaderContext";
 import { UnitContext } from "../../Contexts/UnitContext";
@@ -205,7 +205,9 @@ const ProductForm = (props: Props) => {
   };
 
   React.useEffect(() => {
-    document.title = "POS-Foothill | Product Form";
+    document.title = `POS-Foothill | ${
+      id === "new" ? "Create New" : "Update"
+    } Product`;
     startLoader();
     FetchProduct();
     FetchOtherData();

@@ -12,6 +12,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { UserContext } from "../../Contexts/UserContext";
 import httpCommon from "../../http-common";
+import { LoaderContext } from "../../Contexts/LoaderContext";
 
 interface errors {
   email?: string;
@@ -50,16 +51,19 @@ type Props = {};
 
 const Login = (props: Props) => {
   const navigate = useNavigate();
-  const { handleUser } = React.useContext(UserContext);
+  const { handleUserToken } = React.useContext(UserContext);
+  const { startLoader, stopLoader } = React.useContext(LoaderContext);
 
   const handleSubmit = async (inputs: inputs) => {
+    startLoader();
+
     try {
       const { data } = await httpCommon.post("/auth/signin", inputs);
 
       if (data.message === "success") {
         // Add the token to userContext
-        if (typeof handleUser !== "undefined") {
-          handleUser(data.loginToken);
+        if (typeof handleUserToken !== "undefined") {
+          handleUserToken(data.loginToken);
         }
         toast.success("Welcome back!");
         navigate("/");
@@ -67,10 +71,14 @@ const Login = (props: Props) => {
         toast.error("Incorrect Password!");
       } else if (data.message === "email doesn't exist") {
         toast.error("Invalid Email Address!");
+      } else if (data.message === "please confirm your email") {
+        toast.error("Please ask the Admin to confirm your email");
       } else {
-        toast.error(data.message);
+        console.log(data.message);
       }
     } catch (error) {}
+
+    stopLoader();
   };
 
   const formik = useFormik({

@@ -3,3 +3,7 @@
   gap: 5px;
   align-items: center;
 }
+
+.table__add-item-button * {
+  text-decoration: none;
+}

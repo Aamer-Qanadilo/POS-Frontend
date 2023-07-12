@@ -75,7 +75,7 @@ const CustomTable = ({
     <TableContainer
       component={Paper}
       className="test-table"
-      sx={{ width: "80%", margin: "40px auto" }}
+      sx={{ maxWidth: "85%", margin: "40px auto" }}
     >
       <FilterToolbar
         filters={filters}

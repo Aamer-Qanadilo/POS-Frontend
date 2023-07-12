@@ -1,6 +1,8 @@
 .categories-container {
   position: relative;
   overflow: hidden;
+  width: fit-content;
+  height: fit-content;
 }
 
 .categories-filter {

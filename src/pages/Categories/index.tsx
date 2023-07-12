@@ -63,7 +63,7 @@ const Categories = (props: Props) => {
       >
         <Typography variant="h5">Categories</Typography>
 
-        <Link to={"new"}>
+        <Link to={"new"} style={{ textDecoration: "none" }}>
           <Button
             variant="contained"
             color="primary"

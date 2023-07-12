@@ -1,12 +1,13 @@
 import React from "react";
 
-import { LoaderContext, LoaderProvider } from "../../Contexts/LoaderContext";
+import { Container } from "@mui/system";
+
+import { LoaderContext } from "../../Contexts/LoaderContext";
 import { ProductContext } from "../../Contexts/ProductContext";
 import { UserContext } from "../../Contexts/UserContext";
 import { CategoryContext } from "../../Contexts/CategoryContext";
 import { UnitContext } from "../../Contexts/UnitContext";
-import ProductCard from "../../components/ProductCard";
-import { Container } from "@mui/system";
+
 import useFilters from "../../hooks/useFilters";
 import filtersTypes from "../../types/filters.types";
 import { SelectChangeEvent } from "@mui/material";
@@ -21,16 +22,15 @@ import CartIcon from "../../components/CartIcon";
 type Props = {};
 
 const Cashier = (props: Props) => {
+  const [filters, filtersDispatch] = useFilters({ pageSize: 8 });
+  const [showFilters, setShowFilters] = React.useState<boolean>(false);
+
   const { user } = React.useContext(UserContext);
   const { handleFetchProducts, products } = React.useContext(ProductContext);
   const { handleFetchCategories, categories } =
     React.useContext(CategoryContext);
-  const { handleFetchUnits, units } = React.useContext(UnitContext);
-
+  const { handleFetchUnits } = React.useContext(UnitContext);
   const { startLoader, stopLoader } = React.useContext(LoaderContext);
-
-  const [filters, filtersDispatch] = useFilters({ pageSize: 8 });
-  const [showFilters, setShowFilters] = React.useState<boolean>(false);
 
   const handleToggleShowFilters = () => {
     setShowFilters(!showFilters);

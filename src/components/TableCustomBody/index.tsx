@@ -156,13 +156,31 @@ const TableCustomBody = ({
         );
       } else if (typeof itemData !== "object") {
         return (
-          <StyledTableCell align="center" sx={{ minHeight: "20vh" }}>
+          <StyledTableCell
+            align="center"
+            sx={{
+              minHeight: "20vh",
+              maxWidth: "20ch",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+            }}
+          >
             {date ? date : itemData}
           </StyledTableCell>
         );
       } else if (typeof itemData === "object") {
         return (
-          <StyledTableCell align="center" sx={{ minHeight: "20vh" }}>
+          <StyledTableCell
+            align="center"
+            sx={{
+              minHeight: "20vh",
+              maxWidth: "20ch",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+            }}
+          >
             {itemData["name"]}
           </StyledTableCell>
         );

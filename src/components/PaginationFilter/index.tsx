@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Box,
   InputLabel,
@@ -5,12 +7,14 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import React from "react";
+
 import Pagination from "../Pagination";
 
 import products from "../../types/products.types.js";
 import categories from "../../types/categories.types.js";
 import units from "../../types/units.types.js";
+
+import "./styles.css";
 
 type Props = {
   filters: {
@@ -37,27 +41,8 @@ const PaginationFilter = ({
   handlePageChange,
 }: Props) => {
   return (
-    <Box
-      textAlign="center"
-      padding="5px 10px"
-      flexDirection="row"
-      sx={{
-        boxSizing: "border-box",
-        display: "flex",
-        width: "100%",
-        alignItems: "center",
-        gap: "20px",
-        justifyContent: "space-between",
-      }}
-    >
-      <Box
-        flexDirection="row"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-        }}
-      >
+    <Box component="div" className="pagination">
+      <Box component="div" className="pagination__page-size">
         <InputLabel id="page-size__label">Page Size</InputLabel>
 
         <Select

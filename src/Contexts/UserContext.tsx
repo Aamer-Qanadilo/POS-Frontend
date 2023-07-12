@@ -3,6 +3,7 @@ import * as React from "react";
 import axios from "axios";
 import httpCommon from "../http-common";
 import { LoaderContext } from "./LoaderContext";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface props {
   children: React.ReactNode;
@@ -10,17 +11,23 @@ interface props {
 
 interface ContextValues {
   user?: string | null;
-  handleUser?: (token: string) => Promise<void>;
+  authUser?: (token: string) => Promise<void>;
+  handleUserToken?: (token: string) => void;
 }
 
 export const UserContext = React.createContext<ContextValues>({});
 
 export const UserProvider = ({ children }: props) => {
-  const [user, setUser] = React.useState<string | null>();
+  const [user, setUser] = useLocalStorage<string>("token", "");
   const { startLoader, stopLoader } = React.useContext(LoaderContext);
 
-  const handleUser = async (token: string) => {
+  const handleUserToken = (token: string) => {
+    setUser(token);
+  };
+
+  const authUser = async (token: string) => {
     startLoader();
+
     try {
       const decoded = await jwtDecode(token);
 
@@ -33,29 +40,24 @@ export const UserProvider = ({ children }: props) => {
 
         if (data.message == "success") {
           setUser(token);
-          localStorage.setItem("token", token);
+        } else {
+          setUser("");
         }
       }
     } catch (error) {
       // Invalid token, no need to do anything
-      localStorage.removeItem("token");
-      setUser(null);
+      setUser("");
     }
+
+    stopLoader();
   };
 
   React.useEffect(() => {
-    const tokenItem: string | null = localStorage.getItem("token");
-    if (tokenItem) {
-      handleUser(tokenItem);
-    }
+    authUser(user);
   }, []);
 
-  React.useEffect(() => {
-    stopLoader();
-  }, [user]);
-
   return (
-    <UserContext.Provider value={{ user, handleUser }}>
+    <UserContext.Provider value={{ user, authUser, handleUserToken }}>
       {children}
     </UserContext.Provider>
   );

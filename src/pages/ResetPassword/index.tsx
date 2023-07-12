@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import FormContainer from "../../components/FormContainer";
 import { toast } from "react-toastify";
 import httpCommon from "../../http-common";
+import { LoaderContext } from "../../Contexts/LoaderContext";
 
 type Props = {};
 interface errors {
@@ -61,8 +62,11 @@ const validate = (values: inputs) => {
 
 function ResetPassword({}: Props) {
   const navigate = useNavigate();
+  const { startLoader, stopLoader } = React.useContext(LoaderContext);
 
   const handleSubmit = async (inputs: inputs) => {
+    startLoader();
+
     try {
       const { data } = await httpCommon.patch("/auth/forget-password", inputs);
 
@@ -77,6 +81,8 @@ function ResetPassword({}: Props) {
     } catch (error) {
       toast.error("Something went wrong, please try again!");
     }
+
+    stopLoader();
   };
 
   const formik = useFormik({
