@@ -24,8 +24,9 @@ import categories from "../../types/categories.types.js";
 import units from "../../types/units.types.js";
 
 import { LoaderContext } from "../../Contexts/LoaderContext";
+import TableRowSkeleton from "../TableRowSkeleton";
 
-const StyledTableCell = styled(TableCell)(() => ({
+export const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
@@ -36,7 +37,7 @@ const StyledTableCell = styled(TableCell)(() => ({
   overflow: "hidden",
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
+export const StyledTableRow = styled(TableRow)(({ theme }) => ({
   // hide last border
   "&:last-child td": {
     border: 0,
@@ -52,6 +53,8 @@ type Props = {
   }[];
   imagesBaseUrl?: string;
   onDelete?: (_id: string) => void;
+  isLoading: boolean;
+  pageSize?: number;
 };
 
 const TableCustomBody = ({
@@ -59,6 +62,8 @@ const TableCustomBody = ({
   headers,
   imagesBaseUrl,
   onDelete,
+  isLoading,
+  pageSize,
 }: Props) => {
   const [deletePopupState, setDeletePopupState] = React.useState(false);
   const [actionsOpen, setActionsOpen] = React.useState<
@@ -69,7 +74,7 @@ const TableCustomBody = ({
 
   const navigate = useNavigate();
 
-  if (items.length === 0) {
+  if (items.length === 0 && !isLoading) {
     return (
       <TableBody>
         <StyledTableRow>
@@ -165,6 +170,10 @@ const TableCustomBody = ({
   return (
     <>
       <TableBody sx={{ minHeight: "80vh" }}>
+        {isLoading && (
+          <TableRowSkeleton rows={pageSize || 5} headers={headers} />
+        )}
+
         {items.map((item, index) => (
           <>
             <StyledTableRow

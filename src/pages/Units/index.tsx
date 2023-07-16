@@ -20,6 +20,8 @@ const dataHeader = [
 ];
 
 const Units = (props: Props) => {
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+
   const { user } = React.useContext(UserContext);
   const { units, handleFetchUnits, handleDeleteUnit } =
     React.useContext(UnitContext);
@@ -30,6 +32,7 @@ const Units = (props: Props) => {
       if (typeof handleFetchUnits !== "undefined" && units.length === 0) {
         await handleFetchUnits();
       }
+      setIsLoading(false);
     }
 
     stopLoader();
@@ -38,6 +41,7 @@ const Units = (props: Props) => {
   React.useEffect(() => {
     document.title = "POS-Foothill | Units Page";
     startLoader();
+    setIsLoading(true);
     handleFetchData();
   }, []);
 
@@ -53,6 +57,7 @@ const Units = (props: Props) => {
         data={units}
         dataHeader={dataHeader}
         handleDelete={handleDelete}
+        isLoading={isLoading}
       ></CustomTable>
     </>
   );

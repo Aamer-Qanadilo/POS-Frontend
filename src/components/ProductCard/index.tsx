@@ -47,7 +47,7 @@ const ProductCard = ({ index, product }: Props) => {
   const productQuantity = getItemQuantity(product._id);
 
   return (
-    <Grid item lg={3} md={4} sm={6}>
+    <Grid item lg={3} md={4} sm={6} xs={12}>
       <Card
         key={index}
         className="cashier-product-card"

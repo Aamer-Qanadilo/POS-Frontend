@@ -24,6 +24,7 @@ interface props {
   handleDelete?: (_id: string) => Promise<void>;
   categoryFilters?: categories[] | null;
   imagesBaseUrl?: string;
+  isLoading: boolean;
 }
 
 const CustomTable = ({
@@ -32,6 +33,7 @@ const CustomTable = ({
   categoryFilters,
   imagesBaseUrl,
   handleDelete,
+  isLoading,
 }: props) => {
   const [filters, filtersDispatch] = useFilters();
   const [showFilters, setShowFilters] = React.useState<boolean>(false);
@@ -97,6 +99,8 @@ const CustomTable = ({
           headers={dataHeader}
           imagesBaseUrl={imagesBaseUrl}
           onDelete={handleDelete}
+          isLoading={isLoading}
+          pageSize={filters.pageSize}
         />
       </Table>
 

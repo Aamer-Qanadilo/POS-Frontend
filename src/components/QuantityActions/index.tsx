@@ -46,6 +46,7 @@ const QuantityActions = ({ product }: Props) => {
     <Box
       sx={{
         display: "flex",
+        width: "100%",
         flexDirection: "column",
         alignItems: "center",
         gap: "3px",

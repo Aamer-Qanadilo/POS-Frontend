@@ -19,6 +19,8 @@ const dataHeader = [
 ];
 
 const Categories = (props: Props) => {
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+
   const { user } = React.useContext(UserContext);
   const {
     categories,
@@ -36,6 +38,7 @@ const Categories = (props: Props) => {
       ) {
         await handleFetchCategories();
       }
+      setIsLoading(false);
     }
 
     stopLoader();
@@ -44,6 +47,7 @@ const Categories = (props: Props) => {
   React.useEffect(() => {
     document.title = "POS-Foothill | Categories Page";
     startLoader();
+    setIsLoading(true);
     handleFetchData();
   }, []);
 
@@ -58,6 +62,7 @@ const Categories = (props: Props) => {
         dataHeader={dataHeader}
         imagesBaseUrl={categoryImageBaseUrl}
         handleDelete={handleDeleteCategory}
+        isLoading={isLoading}
       ></CustomTable>
     </>
   );
