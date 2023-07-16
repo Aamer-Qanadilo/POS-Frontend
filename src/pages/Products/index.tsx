@@ -23,6 +23,8 @@ const dataHeader = [
 ];
 
 const Products = (props: Props) => {
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+
   const { user } = React.useContext(UserContext);
   const {
     products,
@@ -39,6 +41,7 @@ const Products = (props: Props) => {
       if (typeof handleFetchProducts !== "undefined" && products.length === 0) {
         await handleFetchProducts();
       }
+      setIsLoading(false);
       if (
         typeof handleFetchCategories !== "undefined" &&
         categories.length === 0
@@ -53,6 +56,7 @@ const Products = (props: Props) => {
   React.useEffect(() => {
     document.title = "POS-Foothill | Products Page";
     startLoader();
+    setIsLoading(true);
     handleFetchData();
   }, []);
 
@@ -68,6 +72,7 @@ const Products = (props: Props) => {
         categoryFilters={categories}
         imagesBaseUrl={productImageBaseUrl}
         handleDelete={handleDeleteProduct}
+        isLoading={isLoading}
       ></CustomTable>
     </>
   );

@@ -136,6 +136,7 @@ const Login = (props: Props) => {
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
+          disabled={!formik.isValid || !formik.dirty}
         >
           Sign In
         </Button>

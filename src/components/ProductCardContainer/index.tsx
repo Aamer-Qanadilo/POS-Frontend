@@ -6,13 +6,16 @@ import ProductCard from "../ProductCard";
 import NotFoundData from "../NotFoundData";
 
 import productType from "../../types/products.types";
+import CardSkeleton from "../CardSkeleton";
 
 type Props = {
   products: productType[];
+  isLoading: boolean;
+  pageSize?: number;
 };
 
-const ProductCardContainer = ({ products }: Props) => {
-  if (products.length === 0) {
+const ProductCardContainer = ({ products, isLoading, pageSize }: Props) => {
+  if (products.length === 0 && !isLoading) {
     return (
       <Container maxWidth="lg">
         <NotFoundData></NotFoundData>
@@ -30,6 +33,7 @@ const ProductCardContainer = ({ products }: Props) => {
         gridAutoRows={"1fr"}
         alignItems={"stretch"}
       >
+        {isLoading && <CardSkeleton cards={pageSize || 8} />}
         {products.map((product, index) => {
           return <ProductCard product={product} index={index} />;
         })}

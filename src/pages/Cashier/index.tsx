@@ -26,6 +26,7 @@ type Props = {};
 const Cashier = (props: Props) => {
   const [filters, filtersDispatch] = useFilters({ pageSize: 8 });
   const [showFilters, setShowFilters] = React.useState<boolean>(false);
+  const [isLoadingProduct, setIsLoadingProduct] = React.useState<boolean>(true);
 
   const { user } = React.useContext(UserContext);
   const { handleFetchProducts, products } = React.useContext(ProductContext);
@@ -67,6 +68,7 @@ const Cashier = (props: Props) => {
     if (user) {
       if (typeof handleFetchProducts !== "undefined") {
         await handleFetchProducts();
+        setIsLoadingProduct(false);
       }
       if (typeof handleFetchCategories !== "undefined") {
         await handleFetchCategories();
@@ -82,6 +84,7 @@ const Cashier = (props: Props) => {
   React.useEffect(() => {
     document.title = "POS-Foothill | Cashier Page";
     startLoader();
+    setIsLoadingProduct(true);
     handleFetchData();
   }, []);
 
@@ -102,7 +105,11 @@ const Cashier = (props: Props) => {
           showFilters={showFilters}
         />
 
-        <ProductCardContainer products={finalData as unknown as products[]} />
+        <ProductCardContainer
+          products={finalData as unknown as products[]}
+          isLoading={isLoadingProduct}
+          pageSize={filters.pageSize}
+        />
 
         <PaginationFilter
           filtered={filtered}
