@@ -10,7 +10,6 @@ type Props = {
   closeActionsPopover: () => void;
   onUpdate: () => void;
   onToggleDelete: () => void;
-  handleProductIndex: () => void;
 };
 
 const TableCustomBodyPopover = ({
@@ -18,7 +17,6 @@ const TableCustomBodyPopover = ({
   closeActionsPopover,
   onUpdate,
   onToggleDelete,
-  handleProductIndex,
 }: Props) => {
   return (
     <Popover
@@ -48,9 +46,7 @@ const TableCustomBodyPopover = ({
       <MenuItem
         sx={{ color: "error.main" }}
         onClick={() => {
-          closeActionsPopover();
           onToggleDelete();
-          handleProductIndex();
         }}
       >
         <DeleteIcon color="error" /> Delete

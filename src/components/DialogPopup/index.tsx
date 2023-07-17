@@ -13,10 +13,8 @@ import {
 
 type Props = {
   deleteAlert: boolean;
-  itemID: string;
   onToggleDelete: () => void;
-  onDelete: (_id: string) => Promise<void>;
-  index: number;
+  onDelete: () => Promise<void>;
 };
 
 const Transition = React.forwardRef(function Transition(
@@ -28,13 +26,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DialogPopup = ({
-  deleteAlert,
-  itemID,
-  onToggleDelete,
-  onDelete,
-  index,
-}: Props) => {
+const DialogPopup = ({ deleteAlert, onToggleDelete, onDelete }: Props) => {
   return (
     <Dialog
       open={deleteAlert}
@@ -51,7 +43,7 @@ const DialogPopup = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={() => onToggleDelete()}>Disagree</Button>
-        <Button onClick={() => onDelete(itemID)}>Agree</Button>
+        <Button onClick={() => onDelete()}>Agree</Button>
       </DialogActions>
     </Dialog>
   );
