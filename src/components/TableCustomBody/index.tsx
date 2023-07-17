@@ -69,10 +69,14 @@ const TableCustomBody = ({
   const [actionsOpen, setActionsOpen] = React.useState<
     (EventTarget & HTMLButtonElement) | null
   >(null);
-  const [productIndex, setProductIndex] = React.useState<number | null>(null);
+  const [productId, setProductId] = React.useState<string | null>(null);
   const { startLoader, stopLoader } = React.useContext(LoaderContext);
 
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    handleCloseMenu();
+  }, [deletePopupState]);
 
   if (items.length === 0 && !isLoading) {
     return (
@@ -88,33 +92,35 @@ const TableCustomBody = ({
 
   const handleOpenMenu = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    _id: string,
   ) => {
     setActionsOpen(event.currentTarget);
+    setProductId(_id);
   };
 
   const handleCloseMenu = () => {
     setActionsOpen(null);
-  };
-
-  const handleUpdate = (_id: string) => {
-    navigate(_id);
-  };
-
-  const handleDelete = async (_id: string) => {
-    handleToggleDelete();
-    startLoader();
-    if (typeof onDelete !== "undefined") onDelete(_id);
-    else {
-      toast.warning("Something went wrong, couldn't perform the delete action");
-      stopLoader();
+    if (!deletePopupState) {
+      setProductId(null);
     }
   };
 
-  const handleProductIndex = (index: number) => {
-    if (deletePopupState) {
-      setProductIndex(null);
+  const handleUpdate = (_id: string) => {
+    if (productId !== null) {
+      navigate(productId);
     } else {
-      setProductIndex(index);
+      navigate("/not-found");
+    }
+  };
+
+  const handleDelete = async () => {
+    handleToggleDelete();
+    startLoader();
+    if (typeof onDelete !== "undefined" && productId !== null)
+      onDelete(productId);
+    else {
+      toast.warning("Something went wrong, couldn't perform the delete action");
+      stopLoader();
     }
   };
 
@@ -185,7 +191,7 @@ const TableCustomBody = ({
                 <IconButton
                   size="large"
                   color="inherit"
-                  onClick={handleOpenMenu}
+                  onClick={(event) => handleOpenMenu(event, item._id)}
                 >
                   <MoreVertIcon />
                 </IconButton>
@@ -193,7 +199,7 @@ const TableCustomBody = ({
             </StyledTableRow>
 
             <TableCustomBodyPopover
-              handleProductIndex={() => handleProductIndex(index)}
+              key={index + item._id + "popover"}
               open={actionsOpen}
               onToggleDelete={handleToggleDelete}
               closeActionsPopover={handleCloseMenu}
@@ -203,14 +209,10 @@ const TableCustomBody = ({
             <DialogPopup
               key={index + item._id + "popup"}
               deleteAlert={
-                deletePopupState &&
-                productIndex !== null &&
-                index === productIndex
+                deletePopupState && productId !== null && item._id === productId
               }
-              itemID={item._id}
               onDelete={handleDelete}
               onToggleDelete={handleToggleDelete}
-              index={index}
             />
           </>
         ))}
