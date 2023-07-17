@@ -13,15 +13,19 @@ import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
 import categories from "../../types/categories.types";
-import filtersTypes from "../../types/filters.types";
 
 import "./styles.css";
+import CustomFilterPopover from "../CustomFilterPopover";
+import { useFilterState } from "../../hooks/useFilters";
 
 type Props = {
+  headers: { label: string; path: string }[];
   categoryFilters?: categories[] | null;
-  filters: filtersTypes;
+  filters: useFilterState;
   onSearch: (query: string) => void;
   onToggleShowFilters: () => void;
+  onFilterPathChange: (path: string) => void;
+  onFilterValueChange: (value: number | string) => void;
 };
 
 const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
@@ -41,11 +45,28 @@ const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
 }));
 
 const FilterToolbar = ({
+  headers,
   categoryFilters,
   filters,
   onSearch,
   onToggleShowFilters,
+  onFilterPathChange,
+  onFilterValueChange,
 }: Props) => {
+  const [customFilterOpen, setCustomFilterOpen] = React.useState<
+    (EventTarget & HTMLButtonElement) | null
+  >(null);
+
+  const handleOpenMenu = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    setCustomFilterOpen(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setCustomFilterOpen(null);
+  };
+
   return (
     <Container maxWidth="xl">
       <Box component="div" className="table-filters">
@@ -64,7 +85,7 @@ const FilterToolbar = ({
           }
         />
 
-        {categoryFilters && (
+        <Box component="div" sx={{ display: "flex", gap: "20px" }}>
           <Button
             disableRipple
             color="inherit"
@@ -74,12 +95,37 @@ const FilterToolbar = ({
                 className="table-filters__icon"
               />
             }
-            onClick={onToggleShowFilters}
+            onClick={handleOpenMenu}
           >
-            Filters&nbsp;
+            Custom Filters&nbsp;
           </Button>
-        )}
+
+          {categoryFilters && (
+            <Button
+              disableRipple
+              color="inherit"
+              endIcon={
+                <FilterListIcon
+                  fontSize="large"
+                  className="table-filters__icon"
+                />
+              }
+              onClick={onToggleShowFilters}
+            >
+              Filters&nbsp;
+            </Button>
+          )}
+        </Box>
       </Box>
+
+      <CustomFilterPopover
+        headers={headers}
+        open={customFilterOpen}
+        closeOptionsPopover={handleCloseMenu}
+        onFilterPathChange={onFilterPathChange}
+        onFilterValueChange={onFilterValueChange}
+        filters={filters}
+      />
     </Container>
   );
 };

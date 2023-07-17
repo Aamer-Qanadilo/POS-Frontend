@@ -65,6 +65,20 @@ const CustomTable = ({
     filtersDispatch({ type: "sort-by", sortInfo: sortColumn });
   };
 
+  const handleCustomFilterPath = (path: string) => {
+    filtersDispatch({
+      type: "custom-filter",
+      filterInfo: { path, value: filters.customFilter.value },
+    });
+  };
+
+  const handleCustomFilterValue = (value: number | string) => {
+    filtersDispatch({
+      type: "custom-filter",
+      filterInfo: { path: filters.customFilter.path, value: value },
+    });
+  };
+
   const { filtered, finalData } = filterData({ filters, data });
 
   return (
@@ -78,6 +92,9 @@ const CustomTable = ({
         onSearch={handleSearch}
         onToggleShowFilters={handleToggleShowFilters}
         categoryFilters={categoryFilters}
+        headers={dataHeader}
+        onFilterPathChange={handleCustomFilterPath}
+        onFilterValueChange={handleCustomFilterValue}
       />
 
       <TableCategoriesFilter

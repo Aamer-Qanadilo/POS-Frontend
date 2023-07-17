@@ -57,7 +57,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const createCart = () => {
     const cartId = uuid();
 
-    const newCard = initialCartValues;
+    const newCard = structuredClone(initialCartValues);
 
     newCard.id = cartId;
 

@@ -11,7 +11,7 @@ type Props = {
 
 const TableRowSkeleton = ({ rows, headers }: Props) => {
   const renderCells = (item: any) => {
-    return headers.map((header) => {
+    return headers.map((header, index) => {
       if (header.path === "image") {
         return (
           <StyledTableCell
@@ -46,7 +46,7 @@ const TableRowSkeleton = ({ rows, headers }: Props) => {
         .fill(0)
         .map((row, index) => {
           return (
-            <StyledTableRow sx={{ minHeight: "3rem" }}>
+            <StyledTableRow sx={{ minHeight: "3rem" }} key={index}>
               {renderCells(row)}
             </StyledTableRow>
           );
