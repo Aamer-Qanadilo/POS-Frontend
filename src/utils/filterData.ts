@@ -26,6 +26,17 @@ const filterData = ({ filters, data }: props) => {
         "category" in d && d.category._id === filters.selectedCategory?._id,
     );
 
+  if (filters.customFilter.path) {
+    filtered = filtered.filter((d) => {
+      const { path, value } = filters.customFilter;
+      const item = d[path as keyof typeof d];
+      if (typeof item === "object") {
+        return item["name"] === value;
+      }
+      return item == value;
+    });
+  }
+
   const sorted = _.orderBy(
     filtered,
     [filters.sortColumn.path],

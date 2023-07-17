@@ -11,7 +11,7 @@ import { UnitContext } from "../../Contexts/UnitContext";
 
 type Props = {};
 
-const dataHeader = [
+export const dataHeader = [
   { canSort: true, label: "Name", path: "name" },
   { canSort: true, label: "Base Unit", path: "baseUnit" },
   { canSort: true, label: "Conversion Factor", path: "conversionFactor" },

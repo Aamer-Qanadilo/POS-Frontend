@@ -12,7 +12,7 @@ import { LoaderContext } from "../../Contexts/LoaderContext";
 
 type Props = {};
 
-const dataHeader = [
+export const dataHeader = [
   { canSort: false, label: "Image", path: "image" },
   { canSort: true, label: "Name", path: "name" },
   { canSort: true, label: "Code", path: "code" },

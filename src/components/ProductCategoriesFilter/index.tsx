@@ -43,9 +43,10 @@ const ProductCategoriesFilter = ({
             <Typography variant="button">All</Typography>
           </Button>
 
-          {categoryFilters?.map((category) => {
+          {categoryFilters?.map((category, index) => {
             return (
               <Button
+                key={category._id}
                 variant="contained"
                 color={
                   selectedCategory && selectedCategory._id === category._id

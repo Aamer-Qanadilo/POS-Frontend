@@ -20,6 +20,7 @@ import products from "../../types/products.types";
 
 import useFilters from "../../hooks/useFilters";
 import filterData from "../../utils/filterData";
+import { dataHeader } from "../Products";
 
 type Props = {};
 
@@ -58,8 +59,18 @@ const Cashier = (props: Props) => {
     filtersDispatch({ type: "search-query", query });
   };
 
-  const handleSort = (sortColumn: filtersTypes["sortColumn"]) => {
-    filtersDispatch({ type: "sort-by", sortInfo: sortColumn });
+  const handleCustomFilterPath = (path: string) => {
+    filtersDispatch({
+      type: "custom-filter",
+      filterInfo: { path, value: filters.customFilter.value },
+    });
+  };
+
+  const handleCustomFilterValue = (value: number | string) => {
+    filtersDispatch({
+      type: "custom-filter",
+      filterInfo: { path: filters.customFilter.path, value: value },
+    });
   };
 
   const { filtered, finalData } = filterData({ filters, data: products });
@@ -96,6 +107,9 @@ const Cashier = (props: Props) => {
           onSearch={handleSearch}
           onToggleShowFilters={handleToggleShowFilters}
           categoryFilters={categories}
+          headers={dataHeader}
+          onFilterPathChange={handleCustomFilterPath}
+          onFilterValueChange={handleCustomFilterValue}
         />
 
         <ProductCategoriesFilter
