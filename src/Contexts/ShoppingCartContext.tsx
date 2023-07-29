@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import products from "../types/products.types";
-import ShoppingCart from "../components/ShoppingCart";
+import ShoppingCart from "../pages/Cashier/components/ShoppingCart";
 import { v4 as uuid } from "uuid";
 import _, { isNumber } from "lodash";
 import { toast } from "react-toastify";

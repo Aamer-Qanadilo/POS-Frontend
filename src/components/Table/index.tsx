@@ -3,8 +3,8 @@ import * as React from "react";
 import { Divider, Paper, TableContainer, Table } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
 
-import TableHeader from "../TableHeader";
-import TableCustomBody from "../TableCustomBody";
+import TableHeader from "./components/TableHeader";
+import TableCustomBody from "./components/TableCustomBody";
 import PaginationFilter from "../PaginationFilter";
 import TableCategoriesFilter from "../ProductCategoriesFilter";
 import FilterToolbar from "../FiltersToolbar";

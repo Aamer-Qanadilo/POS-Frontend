@@ -21,7 +21,7 @@ import EmptyCashier from "../EmptyCashier";
 import CashierSummary from "../CashierSummary";
 import CashierInputs from "../CashierInputs";
 
-import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+import { ShoppingCartContext } from "../../../../Contexts/ShoppingCartContext";
 
 type Props = {
   isOpen: boolean;

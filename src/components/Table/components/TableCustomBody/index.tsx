@@ -17,13 +17,13 @@ import moment from "moment";
 
 import DialogPopup from "../DialogPopup";
 import TableCustomBodyPopover from "../TableCustomBodyPopover";
-import NotFoundData from "../NotFoundData";
+import NotFoundData from "../../../NotFoundData";
 
-import products from "../../types/products.types.js";
-import categories from "../../types/categories.types.js";
-import units from "../../types/units.types.js";
+import products from "../../../../types/products.types.js";
+import categories from "../../../../types/categories.types.js";
+import units from "../../../../types/units.types.js";
 
-import { LoaderContext } from "../../Contexts/LoaderContext";
+import { LoaderContext } from "../../../../Contexts/LoaderContext";
 import TableRowSkeleton from "../TableRowSkeleton";
 
 export const StyledTableCell = styled(TableCell)(() => ({

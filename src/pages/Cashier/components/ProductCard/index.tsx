@@ -12,14 +12,14 @@ import {
   Typography,
 } from "@mui/material";
 
-import QuantityActions from "../QuantityActions";
+import QuantityActions from "../../../../components/QuantityActions";
 
-import productType from "../../types/products.types";
+import productType from "../../../../types/products.types";
 
-import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
-import { ProductContext } from "../../Contexts/ProductContext";
+import { ShoppingCartContext } from "../../../../Contexts/ShoppingCartContext";
+import { ProductContext } from "../../../../Contexts/ProductContext";
 
-import { formatCurrency } from "../../utils/formatCurrency";
+import { formatCurrency } from "../../../../utils/formatCurrency";
 
 import "./styles.css";
 

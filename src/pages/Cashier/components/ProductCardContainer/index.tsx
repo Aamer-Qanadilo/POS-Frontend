@@ -3,9 +3,9 @@ import React from "react";
 import { Container, Grid } from "@mui/material";
 
 import ProductCard from "../ProductCard";
-import NotFoundData from "../NotFoundData";
+import NotFoundData from "../../../../components/NotFoundData";
 
-import productType from "../../types/products.types";
+import productType from "../../../../types/products.types";
 import CardSkeleton from "../CardSkeleton";
 
 type Props = {
