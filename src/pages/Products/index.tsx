@@ -3,7 +3,7 @@ import React from "react";
 import { Divider } from "@mui/material";
 
 import CustomTable from "../../components/Table";
-import TableNav from "../../components/TableNav";
+import TableNav from "../../components/Table/components/TableNav";
 
 import { UserContext } from "../../Contexts/UserContext";
 import { ProductContext } from "../../Contexts/ProductContext";

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Grid, Card, Box, CardContent } from "@mui/material";
+import { Grid, Card, Box } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
 
 type Props = {

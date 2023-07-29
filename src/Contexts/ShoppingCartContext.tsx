@@ -3,7 +3,6 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import products from "../types/products.types";
 import ShoppingCart from "../pages/Cashier/components/ShoppingCart";
 import { v4 as uuid } from "uuid";
-import _, { isNumber } from "lodash";
 import { toast } from "react-toastify";
 import { LoaderContext } from "./LoaderContext";
 
@@ -25,7 +24,7 @@ const initialCartValues: CartType = {
   products: [],
 };
 
-type ShoppingCartContext = {
+type ShoppingCartContextType = {
   createCart: () => void;
   openCart: () => void;
   closeCart: () => void;
@@ -46,7 +45,7 @@ type ShoppingCartContext = {
   cartTotal: number;
 };
 
-export const ShoppingCartContext = createContext({} as ShoppingCartContext);
+export const ShoppingCartContext = createContext({} as ShoppingCartContextType);
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const [isOpen, setIsOpen] = useState(false);

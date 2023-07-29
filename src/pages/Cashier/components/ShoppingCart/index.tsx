@@ -32,14 +32,8 @@ const ShoppingCart = ({ isOpen }: Props) => {
     (EventTarget & HTMLButtonElement) | null
   >(null);
 
-  const {
-    closeCart,
-    openedCart,
-    cartsQuantity,
-    isCartEmpty,
-    cartItemsQuantity,
-    handleCheckout,
-  } = React.useContext(ShoppingCartContext);
+  const { closeCart, openedCart, cartsQuantity, isCartEmpty, handleCheckout } =
+    React.useContext(ShoppingCartContext);
 
   const handleOpenMenu = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,

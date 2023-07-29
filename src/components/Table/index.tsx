@@ -14,7 +14,6 @@ import categories from "../../types/categories.types.js";
 import units from "../../types/units.types.js";
 import filtersTypes from "../../types/filters.types";
 
-import _ from "lodash";
 import useFilters from "../../hooks/useFilters";
 import filterData from "../../utils/filterData";
 
