@@ -21,7 +21,7 @@ import EmptyCashier from "../EmptyCashier";
 import CashierSummary from "../CashierSummary";
 import CashierInputs from "../CashierInputs";
 
-import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+import { ShoppingCartContext } from "../../../../Contexts/ShoppingCartContext";
 
 type Props = {
   isOpen: boolean;
@@ -32,14 +32,8 @@ const ShoppingCart = ({ isOpen }: Props) => {
     (EventTarget & HTMLButtonElement) | null
   >(null);
 
-  const {
-    closeCart,
-    openedCart,
-    cartsQuantity,
-    isCartEmpty,
-    cartItemsQuantity,
-    handleCheckout,
-  } = React.useContext(ShoppingCartContext);
+  const { closeCart, openedCart, cartsQuantity, isCartEmpty, handleCheckout } =
+    React.useContext(ShoppingCartContext);
 
   const handleOpenMenu = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,

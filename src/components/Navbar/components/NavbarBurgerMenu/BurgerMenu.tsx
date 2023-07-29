@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-import { UserContext } from "../../Contexts/UserContext";
+import { UserContext } from "../../../../Contexts/UserContext";
 
 import "./styles.css";
 

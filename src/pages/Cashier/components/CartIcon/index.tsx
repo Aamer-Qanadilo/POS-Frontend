@@ -5,7 +5,7 @@ import { grey } from "@mui/material/colors";
 
 import CartsQuantity from "../CartsQuantity";
 
-import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+import { ShoppingCartContext } from "../../../../Contexts/ShoppingCartContext";
 
 type Props = {};
 

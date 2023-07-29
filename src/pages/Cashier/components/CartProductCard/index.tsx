@@ -10,14 +10,14 @@ import {
   Typography,
 } from "@mui/material";
 
-import QuantityActions from "../QuantityActions";
+import QuantityActions from "../../../../components/QuantityActions";
 
-import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
-import { ProductContext } from "../../Contexts/ProductContext";
+import { ShoppingCartContext } from "../../../../Contexts/ShoppingCartContext";
+import { ProductContext } from "../../../../Contexts/ProductContext";
 
-import productType from "../../types/products.types";
+import productType from "../../../../types/products.types";
 
-import { formatCurrency } from "../../utils/formatCurrency";
+import { formatCurrency } from "../../../../utils/formatCurrency";
 
 type Props = {
   index: number;

@@ -23,8 +23,6 @@ const NumberTextField = ({
   value,
   text,
 }: Props) => {
-  const [inputValue, setInputValue] = React.useState(value);
-
   const handleChangeValue = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -33,7 +31,6 @@ const NumberTextField = ({
     const quantity = Number(value);
 
     if (isNumber(quantity)) {
-      setInputValue(quantity);
       onChange(quantity);
     }
   };

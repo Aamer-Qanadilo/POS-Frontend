@@ -7,7 +7,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 
-import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+import { ShoppingCartContext } from "../../../../Contexts/ShoppingCartContext";
 
 import { isNumber } from "lodash";
 

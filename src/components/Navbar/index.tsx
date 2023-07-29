@@ -11,7 +11,7 @@ import {
   AppBar,
 } from "@mui/material";
 
-import BurgerMenu from "../NavbarBurgerMenu/BurgerMenu";
+import BurgerMenu from "./components/NavbarBurgerMenu/BurgerMenu";
 
 import { UserContext } from "../../Contexts/UserContext";
 

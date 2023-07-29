@@ -3,7 +3,7 @@ import React from "react";
 import { Divider } from "@mui/material";
 
 import CustomTable from "../../components/Table";
-import TableNav from "../../components/TableNav";
+import TableNav from "../../components/Table/components/TableNav";
 
 import { UserContext } from "../../Contexts/UserContext";
 import { LoaderContext } from "../../Contexts/LoaderContext";
@@ -23,8 +23,7 @@ const Units = (props: Props) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   const { user } = React.useContext(UserContext);
-  const { units, handleFetchUnits, handleDeleteUnit } =
-    React.useContext(UnitContext);
+  const { units, handleFetchUnits } = React.useContext(UnitContext);
   const { startLoader, stopLoader } = React.useContext(LoaderContext);
 
   const handleFetchData = async () => {

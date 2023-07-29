@@ -2,9 +2,9 @@ import React from "react";
 
 import { Box, Typography } from "@mui/material";
 
-import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+import { ShoppingCartContext } from "../../../../Contexts/ShoppingCartContext";
 
-import { formatCurrency } from "../../utils/formatCurrency";
+import { formatCurrency } from "../../../../utils/formatCurrency";
 
 type Props = {};
 

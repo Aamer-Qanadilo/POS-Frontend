@@ -2,7 +2,7 @@ import React from "react";
 
 import { Avatar, Box, Button, Container, Typography } from "@mui/material";
 
-import { ShoppingCartContext } from "../../Contexts/ShoppingCartContext";
+import { ShoppingCartContext } from "../../../../Contexts/ShoppingCartContext";
 
 type Props = {
   onOpenMenu: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;

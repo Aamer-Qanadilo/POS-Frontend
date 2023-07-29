@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Typography } from "@mui/material";
 
-import NumberTextField from "../NumberTextField";
+import NumberTextField from "./components/NumberTextField";
 
 import products from "../../types/products.types";
 

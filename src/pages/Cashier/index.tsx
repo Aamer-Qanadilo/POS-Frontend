@@ -6,8 +6,8 @@ import { SelectChangeEvent } from "@mui/material";
 import FilterToolbar from "../../components/FiltersToolbar";
 import ProductCategoriesFilter from "../../components/ProductCategoriesFilter";
 import PaginationFilter from "../../components/PaginationFilter";
-import ProductCardContainer from "../../components/ProductCardContainer";
-import CartIcon from "../../components/CartIcon";
+import ProductCardContainer from "./components/ProductCardContainer";
+import CartIcon from "./components/CartIcon";
 
 import { LoaderContext } from "../../Contexts/LoaderContext";
 import { ProductContext } from "../../Contexts/ProductContext";

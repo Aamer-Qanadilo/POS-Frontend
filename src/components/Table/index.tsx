@@ -3,8 +3,8 @@ import * as React from "react";
 import { Divider, Paper, TableContainer, Table } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
 
-import TableHeader from "../TableHeader";
-import TableCustomBody from "../TableCustomBody";
+import TableHeader from "./components/TableHeader";
+import TableCustomBody from "./components/TableCustomBody";
 import PaginationFilter from "../PaginationFilter";
 import TableCategoriesFilter from "../ProductCategoriesFilter";
 import FilterToolbar from "../FiltersToolbar";
@@ -14,7 +14,6 @@ import categories from "../../types/categories.types.js";
 import units from "../../types/units.types.js";
 import filtersTypes from "../../types/filters.types";
 
-import _ from "lodash";
 import useFilters from "../../hooks/useFilters";
 import filterData from "../../utils/filterData";
 

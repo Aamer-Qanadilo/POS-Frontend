@@ -8,7 +8,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 
-import Pagination from "../Pagination";
+import Pagination from "./components/Pagination";
 
 import products from "../../types/products.types.js";
 import categories from "../../types/categories.types.js";
